@@ -5,13 +5,6 @@ const StoreContext = createContext(null);
 const API_URL =
   "https://script.google.com/macros/s/AKfycbyDRYsv9yO7dXr6RycvPieJioq5AM2R_TyRJR_S0QZ7mwadIr7l89hJ7SkBb6OVo2Yh/exec";
 
-const DEFAULT_CATEGORIES = [
-  { id: "pulseras", name: "Pulseras", jp: "ブレスレット" },
-  { id: "collares", name: "Collares", jp: "ネックレス" },
-  { id: "llaveros", name: "Llaveros", jp: "キーホルダー" },
-  { id: "joyeria", name: "Joyeria", jp: "ジュエリー" },
-];
-
 async function apiGet(action, params = "") {
   const res = await fetch(`${API_URL}?action=${action}${params}`);
   return res.json();
@@ -68,10 +61,21 @@ export function StoreProvider({ children }) {
   }
 
   async function addProduct(data) {
-    const product = { ...data, id: Date.now().toString() };
+    const product = {
+      ...data,
+      id: Date.now().toString(),
+      disponible: data.disponible ?? true,
+    };
     await apiPost("addProduct", product);
     setProducts((prev) => [...prev, product]);
     return product;
+  }
+
+  async function updateProduct(id, data) {
+    await apiPost("updateProduct", { id, ...data });
+    setProducts((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, ...data } : p)),
+    );
   }
 
   async function deleteProduct(id) {
@@ -87,6 +91,7 @@ export function StoreProvider({ children }) {
         deleteCategory,
         products,
         addProduct,
+        updateProduct,
         deleteProduct,
         loading,
       }}
