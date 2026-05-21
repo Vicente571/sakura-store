@@ -19,7 +19,7 @@ async function apiPost(action, data) {
 }
 
 export function StoreProvider({ children }) {
-  const [categories, setCategories] = useState(DEFAULT_CATEGORIES);
+  const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -30,7 +30,7 @@ export function StoreProvider({ children }) {
           apiGet("getCategories"),
           apiGet("getProducts"),
         ]);
-        if (Array.isArray(cats) && cats.length > 0) setCategories(cats);
+        if (Array.isArray(cats)) setCategories(cats);
         if (Array.isArray(prods)) setProducts(prods);
       } catch (err) {
         console.error("Error cargando datos:", err);
@@ -99,6 +99,10 @@ export function StoreProvider({ children }) {
       {children}
     </StoreContext.Provider>
   );
+}
+
+export function useStore() {
+  return useContext(StoreContext);
 }
 
 export function useStore() {
