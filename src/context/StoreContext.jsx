@@ -104,7 +104,3 @@ export function StoreProvider({ children }) {
 export function useStore() {
   return useContext(StoreContext);
 }
-
-export function useStore() {
-  return useContext(StoreContext);
-}
