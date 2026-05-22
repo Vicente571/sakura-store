@@ -16,6 +16,12 @@ async function apiPost(action, data) {
   return res.json();
 }
 
+function parseDisponible(val) {
+  if (val === true || val === "true" || val === "TRUE") return true;
+  if (val === false || val === "false" || val === "FALSE") return false;
+  return true;
+}
+
 export function StoreProvider({ children }) {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
@@ -29,7 +35,13 @@ export function StoreProvider({ children }) {
           apiGet("getProducts"),
         ]);
         if (Array.isArray(cats)) setCategories(cats);
-        if (Array.isArray(prods)) setProducts(prods);
+        if (Array.isArray(prods))
+          setProducts(
+            prods.map((p) => ({
+              ...p,
+              disponible: parseDisponible(p.disponible),
+            })),
+          );
       } catch (err) {
         console.error("Error cargando datos:", err);
       } finally {
@@ -59,28 +71,28 @@ export function StoreProvider({ children }) {
   }
 
   async function addProduct(data) {
+    const disponible = parseDisponible(data.disponible ?? true);
     const product = {
       ...data,
       id: Date.now().toString(),
-      disponible: String(data.disponible ?? true),
+      disponible: disponible,
     };
-    await apiPost("addProduct", product);
+    await apiPost("addProduct", { ...product, disponible: String(disponible) });
     setProducts((prev) => [...prev, product]);
     return product;
   }
 
   async function updateProduct(id, data) {
+    const disponible = parseDisponible(data.disponible);
     const payload = {
       id,
       ...data,
-      disponible: String(data.disponible),
+      disponible: String(disponible),
     };
     await apiPost("updateProduct", payload);
     setProducts((prev) =>
       prev.map((p) =>
-        p.id === id
-          ? { ...p, ...data, disponible: String(data.disponible) }
-          : p,
+        p.id === id ? { ...p, ...data, disponible: disponible } : p,
       ),
     );
   }
