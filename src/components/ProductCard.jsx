@@ -18,7 +18,7 @@ function buildWALink(product) {
   return `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${msg}`;
 }
 
-function buildIGLink(product) {
+function buildIGLink() {
   return `https://ig.me/m/${IG_USER}`;
 }
 
@@ -29,10 +29,7 @@ export default function ProductCard({ product, index }) {
 
   const cat = categories.find((c) => c.id === product.categoryId);
   const jpChar = JP_CHARS[index % JP_CHARS.length];
-  const disp =
-    product.disponible === true ||
-    product.disponible === "true" ||
-    product.disponible === undefined;
+  const disp = product.disponible === true || product.disponible === "true";
 
   const s = {
     card: {
@@ -176,19 +173,20 @@ export default function ProductCard({ product, index }) {
       fontSize: 11,
       color: "#666",
       lineHeight: 1.6,
-      marginBottom: 14,
+      marginBottom: 10,
       flex: 1,
     },
     btnGroup: {
       display: "grid",
       gridTemplateColumns: "1fr 1fr",
       gap: 6,
+      marginBottom: 6,
     },
     btnWA: {
       padding: "9px 6px",
-      background: disp ? "#e8609a" : "#2a1a22",
+      background: "#e8609a",
       border: "none",
-      color: disp ? "#0a0a0a" : "#555",
+      color: "#0a0a0a",
       fontSize: 9,
       letterSpacing: 1.5,
       textTransform: "uppercase",
@@ -198,7 +196,6 @@ export default function ProductCard({ product, index }) {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      gap: 5,
       transition: "background 0.2s",
     },
     btnIG: {
@@ -215,10 +212,14 @@ export default function ProductCard({ product, index }) {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      gap: 5,
       transition: "all 0.2s",
     },
-    // Lightbox
+    igNote: {
+      fontSize: 9,
+      color: "#444",
+      textAlign: "center",
+      lineHeight: 1.4,
+    },
     lightboxOverlay: {
       position: "fixed",
       inset: 0,
@@ -321,6 +322,7 @@ export default function ProductCard({ product, index }) {
           </div>
           <div style={s.name}>{product.name}</div>
           <div style={s.desc}>{product.desc}</div>
+
           <div style={s.btnGroup}>
             <button
               style={s.btnWA}
@@ -331,23 +333,19 @@ export default function ProductCard({ product, index }) {
                   "noopener,noreferrer",
                 )
               }
-              onMouseEnter={(e) => {
-                if (disp) e.currentTarget.style.background = "#f07ab0";
-              }}
-              onMouseLeave={(e) => {
-                if (disp) e.currentTarget.style.background = "#e8609a";
-              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background = "#f07ab0")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.background = "#e8609a")
+              }
             >
               WhatsApp
             </button>
             <button
               style={s.btnIG}
               onClick={() =>
-                window.open(
-                  buildIGLink(product),
-                  "_blank",
-                  "noopener,noreferrer",
-                )
+                window.open(buildIGLink(), "_blank", "noopener,noreferrer")
               }
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = "rgba(232,96,154,0.1)";
@@ -360,6 +358,11 @@ export default function ProductCard({ product, index }) {
             >
               Instagram
             </button>
+          </div>
+
+          <div style={s.igNote}>
+            Instagram solo abre el chat. Para preguntar toma captura de la foto
+            del producto.
           </div>
         </div>
       </div>
