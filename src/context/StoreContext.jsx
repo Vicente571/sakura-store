@@ -16,9 +16,9 @@ async function apiPost(action, data) {
   return res.json();
 }
 
-function parseDisponible(val) {
-  if (val === false || val === "false" || val === "FALSE" || val === 0)
-    return false;
+function toBoolean(val) {
+  if (val === false || val === "false" || val === "FALSE") return false;
+  if (val === true || val === "true" || val === "TRUE") return true;
   return true;
 }
 
@@ -37,10 +37,7 @@ export function StoreProvider({ children }) {
         if (Array.isArray(cats)) setCategories(cats);
         if (Array.isArray(prods))
           setProducts(
-            prods.map((p) => ({
-              ...p,
-              disponible: parseDisponible(p.disponible),
-            })),
+            prods.map((p) => ({ ...p, disponible: toBoolean(p.disponible) })),
           );
       } catch (err) {
         console.error("Error cargando datos:", err);
@@ -71,24 +68,23 @@ export function StoreProvider({ children }) {
   }
 
   async function addProduct(data) {
-    const disponible = parseDisponible(data.disponible ?? true);
+    const disponible = toBoolean(data.disponible);
     const product = {
       ...data,
       id: Date.now().toString(),
       disponible: disponible,
     };
-    await apiPost("addProduct", { ...product, disponible: String(disponible) });
+    await apiPost("addProduct", {
+      ...product,
+      disponible: disponible ? "true" : "false",
+    });
     setProducts((prev) => [...prev, product]);
     return product;
   }
 
   async function updateProduct(id, data) {
-    const disponible = parseDisponible(data.disponible);
-    const payload = {
-      id,
-      ...data,
-      disponible: String(disponible),
-    };
+    const disponible = toBoolean(data.disponible);
+    const payload = { id, ...data, disponible: disponible ? "true" : "false" };
     await apiPost("updateProduct", payload);
     setProducts((prev) =>
       prev.map((p) =>

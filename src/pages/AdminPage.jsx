@@ -22,7 +22,6 @@ export default function AdminPage() {
   const [toast, setToast] = useState(null);
   const [editingProduct, setEditingProduct] = useState(null);
 
-  // Product form
   const [pName, setPName] = useState("");
   const [pCat, setPCat] = useState("");
   const [pPrice, setPPrice] = useState("");
@@ -30,12 +29,8 @@ export default function AdminPage() {
   const [pImg, setPImg] = useState("");
   const [pDisponible, setPDisponible] = useState(true);
 
-  // Category form
   const [cName, setCName] = useState("");
   const [cJp, setCJp] = useState("");
-
-  // Visitas
-  const totalVisitas = parseInt(localStorage.getItem("sk_visitas") || "0");
 
   function showToast(msg, type = "ok") {
     setToast({ msg, type });
@@ -127,6 +122,8 @@ export default function AdminPage() {
     await deleteProduct(id);
     showToast("Producto eliminado");
   }
+
+  const disponiblesCount = products.filter((p) => p.disponible === true).length;
 
   const s = {
     page: { minHeight: "100vh", background: "#0a0a0a", position: "relative" },
@@ -454,7 +451,12 @@ export default function AdminPage() {
       display: "block",
       marginBottom: 3,
     },
-    itemMeta: { display: "flex", alignItems: "center", gap: 8 },
+    itemMeta: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      flexWrap: "wrap",
+    },
     itemPrice: { fontSize: 11, color: "#e8609a", fontWeight: 600 },
     itemCat: {
       fontSize: 9,
@@ -521,8 +523,6 @@ export default function AdminPage() {
   const focusStyle = (e) => (e.target.style.borderColor = "#e8609a");
   const blurStyle = (e) => (e.target.style.borderColor = "#2a1a22");
 
-  const disponiblesCount = products.filter((p) => p.disponible === true).length;
-
   return (
     <div style={s.page}>
       <div style={s.jpBg}>
@@ -565,7 +565,6 @@ export default function AdminPage() {
       </header>
 
       <main style={s.main}>
-        {/* Stats */}
         <div style={s.statsRow}>
           <div style={s.statCard}>
             <span style={s.statNum}>{products.length}</span>
@@ -629,7 +628,6 @@ export default function AdminPage() {
                 </label>
                 <ImageUploader value={pImg} onChange={setPImg} />
               </div>
-
               <div style={s.group}>
                 <label style={s.label}>
                   Nombre <span style={s.labelJp}>商品名</span>
@@ -643,7 +641,6 @@ export default function AdminPage() {
                   onBlur={blurStyle}
                 />
               </div>
-
               <div style={s.row}>
                 <div style={s.group}>
                   <label style={s.label}>
@@ -678,7 +675,6 @@ export default function AdminPage() {
                   />
                 </div>
               </div>
-
               <div style={s.group}>
                 <label style={s.label}>
                   Descripcion <span style={s.labelJp}>説明</span>
@@ -692,14 +688,13 @@ export default function AdminPage() {
                   onBlur={blurStyle}
                 />
               </div>
-
               <div style={s.group}>
                 <label style={s.label}>
                   Disponibilidad <span style={s.labelJp}>在庫</span>
                 </label>
                 <div
                   style={s.toggleWrap}
-                  onClick={() => setPDisponible(!pDisponible)}
+                  onClick={() => setPDisponible((prev) => !prev)}
                 >
                   <div style={s.toggleDot(pDisponible)}>
                     <div style={s.toggleKnob(pDisponible)} />
@@ -709,7 +704,6 @@ export default function AdminPage() {
                   </span>
                 </div>
               </div>
-
               <div style={s.btnRow}>
                 <button
                   style={s.submitBtn}
@@ -746,13 +740,11 @@ export default function AdminPage() {
             <div style={s.listTitle}>
               Productos registrados ({products.length})
             </div>
-
             {products.length === 0 && (
               <div style={{ fontSize: 12, color: "#444", padding: "16px 0" }}>
                 Sin productos aun
               </div>
             )}
-
             {products.map((p, i) => {
               const cat = categories.find((c) => c.id === p.categoryId);
               const disp = p.disponible === true;
@@ -815,7 +807,6 @@ export default function AdminPage() {
           <div className="fade-in">
             <div style={s.sectionTitle}>Agregar Categoria</div>
             <span style={s.sectionJp}>カテゴリーを追加する</span>
-
             <div style={s.form}>
               <div style={s.row}>
                 <div style={s.group}>
@@ -858,10 +849,8 @@ export default function AdminPage() {
                 Crear categoria
               </button>
             </div>
-
             <div style={s.divider} />
             <div style={s.listTitle}>Categorias ({categories.length})</div>
-
             {categories.map((cat) => {
               const count = products.filter(
                 (p) => p.categoryId === cat.id,
