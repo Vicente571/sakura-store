@@ -11,10 +11,8 @@ async function apiGet(action, params = "") {
 }
 
 async function apiPost(action, data) {
-  const res = await fetch(`${API_URL}?action=${action}`, {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+  const encoded = encodeURIComponent(JSON.stringify(data));
+  const res = await fetch(`${API_URL}?action=${action}&data=${encoded}`);
   return res.json();
 }
 
