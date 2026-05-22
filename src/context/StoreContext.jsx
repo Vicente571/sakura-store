@@ -16,10 +16,14 @@ async function apiPost(action, data) {
   return res.json();
 }
 
-function toBoolean(val) {
-  if (val === false || val === "false" || val === "FALSE") return false;
-  if (val === true || val === "true" || val === "TRUE") return true;
-  return true;
+// SI el valor es exactamente el string "si" => disponible
+// cualquier otra cosa => no disponible
+function parseDisp(val) {
+  return String(val).trim().toLowerCase() === "si";
+}
+
+function toDisp(bool) {
+  return bool ? "si" : "no";
 }
 
 export function StoreProvider({ children }) {
@@ -35,10 +39,11 @@ export function StoreProvider({ children }) {
           apiGet("getProducts"),
         ]);
         if (Array.isArray(cats)) setCategories(cats);
-        if (Array.isArray(prods))
+        if (Array.isArray(prods)) {
           setProducts(
-            prods.map((p) => ({ ...p, disponible: toBoolean(p.disponible) })),
+            prods.map((p) => ({ ...p, disponible: parseDisp(p.disponible) })),
           );
+        }
       } catch (err) {
         console.error("Error cargando datos:", err);
       } finally {
@@ -68,28 +73,25 @@ export function StoreProvider({ children }) {
   }
 
   async function addProduct(data) {
-    const disponible = toBoolean(data.disponible);
     const product = {
       ...data,
       id: Date.now().toString(),
-      disponible: disponible,
+      disponible: data.disponible === true,
     };
     await apiPost("addProduct", {
       ...product,
-      disponible: disponible ? "true" : "false",
+      disponible: toDisp(product.disponible),
     });
     setProducts((prev) => [...prev, product]);
     return product;
   }
 
   async function updateProduct(id, data) {
-    const disponible = toBoolean(data.disponible);
-    const payload = { id, ...data, disponible: disponible ? "true" : "false" };
+    const disponible = data.disponible === true;
+    const payload = { id, ...data, disponible: toDisp(disponible) };
     await apiPost("updateProduct", payload);
     setProducts((prev) =>
-      prev.map((p) =>
-        p.id === id ? { ...p, ...data, disponible: disponible } : p,
-      ),
+      prev.map((p) => (p.id === id ? { ...p, ...data, disponible } : p)),
     );
   }
 

@@ -344,40 +344,6 @@ export default function AdminPage() {
       minHeight: 80,
       lineHeight: 1.6,
     },
-    toggleWrap: {
-      display: "flex",
-      alignItems: "center",
-      gap: 12,
-      padding: "10px 14px",
-      background: "#111014",
-      border: "1px solid #2a1a22",
-      borderRadius: 2,
-      cursor: "pointer",
-    },
-    toggleDot: (active) => ({
-      width: 36,
-      height: 20,
-      borderRadius: 10,
-      background: active ? "#e8609a" : "#2a1a22",
-      position: "relative",
-      transition: "background 0.2s",
-      flexShrink: 0,
-    }),
-    toggleKnob: (active) => ({
-      position: "absolute",
-      top: 3,
-      left: active ? 19 : 3,
-      width: 14,
-      height: 14,
-      borderRadius: "50%",
-      background: "#f0e0e8",
-      transition: "left 0.2s",
-    }),
-    toggleLabel: (active) => ({
-      fontSize: 12,
-      color: active ? "#e8609a" : "#555",
-      fontWeight: active ? 600 : 400,
-    }),
     btnRow: { display: "flex", gap: 10 },
     submitBtn: {
       flex: 1,
@@ -628,6 +594,7 @@ export default function AdminPage() {
                 </label>
                 <ImageUploader value={pImg} onChange={setPImg} />
               </div>
+
               <div style={s.group}>
                 <label style={s.label}>
                   Nombre <span style={s.labelJp}>商品名</span>
@@ -641,6 +608,7 @@ export default function AdminPage() {
                   onBlur={blurStyle}
                 />
               </div>
+
               <div style={s.row}>
                 <div style={s.group}>
                   <label style={s.label}>
@@ -675,6 +643,7 @@ export default function AdminPage() {
                   />
                 </div>
               </div>
+
               <div style={s.group}>
                 <label style={s.label}>
                   Descripcion <span style={s.labelJp}>説明</span>
@@ -688,22 +657,23 @@ export default function AdminPage() {
                   onBlur={blurStyle}
                 />
               </div>
+
               <div style={s.group}>
                 <label style={s.label}>
                   Disponibilidad <span style={s.labelJp}>在庫</span>
                 </label>
-                <div
-                  style={s.toggleWrap}
-                  onClick={() => setPDisponible((prev) => !prev)}
+                <select
+                  style={s.select}
+                  value={pDisponible ? "si" : "no"}
+                  onChange={(e) => setPDisponible(e.target.value === "si")}
+                  onFocus={focusStyle}
+                  onBlur={blurStyle}
                 >
-                  <div style={s.toggleDot(pDisponible)}>
-                    <div style={s.toggleKnob(pDisponible)} />
-                  </div>
-                  <span style={s.toggleLabel(pDisponible)}>
-                    {pDisponible ? "Disponible" : "No disponible"}
-                  </span>
-                </div>
+                  <option value="si">Disponible</option>
+                  <option value="no">No disponible</option>
+                </select>
               </div>
+
               <div style={s.btnRow}>
                 <button
                   style={s.submitBtn}
@@ -740,11 +710,13 @@ export default function AdminPage() {
             <div style={s.listTitle}>
               Productos registrados ({products.length})
             </div>
+
             {products.length === 0 && (
               <div style={{ fontSize: 12, color: "#444", padding: "16px 0" }}>
                 Sin productos aun
               </div>
             )}
+
             {products.map((p, i) => {
               const cat = categories.find((c) => c.id === p.categoryId);
               const disp = p.disponible === true;
@@ -807,6 +779,7 @@ export default function AdminPage() {
           <div className="fade-in">
             <div style={s.sectionTitle}>Agregar Categoria</div>
             <span style={s.sectionJp}>カテゴリーを追加する</span>
+
             <div style={s.form}>
               <div style={s.row}>
                 <div style={s.group}>
@@ -849,8 +822,10 @@ export default function AdminPage() {
                 Crear categoria
               </button>
             </div>
+
             <div style={s.divider} />
             <div style={s.listTitle}>Categorias ({categories.length})</div>
+
             {categories.map((cat) => {
               const count = products.filter(
                 (p) => p.categoryId === cat.id,
