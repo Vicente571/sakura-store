@@ -6,8 +6,7 @@ const IG_USER = "storee.sakura";
 const JP_CHARS = ["桜", "愛", "美", "輝", "宝", "星", "月", "花", "光", "夢"];
 
 function buildWALink(product) {
-  const disponible =
-    product.disponible === true || product.disponible === "true";
+  const disponible = String(product.disponible).toLowerCase() === "true";
   const msg = encodeURIComponent(
     `Hola! Vi el producto *${product.name}* en Sakura Store y me interesa hacer un encargo.\n` +
       `💰 Precio: $${product.price}\n` +
@@ -29,7 +28,7 @@ export default function ProductCard({ product, index }) {
 
   const cat = categories.find((c) => c.id === product.categoryId);
   const jpChar = JP_CHARS[index % JP_CHARS.length];
-  const disp = product.disponible === true || product.disponible === "true";
+  const disp = String(product.disponible).toLowerCase() === "true";
 
   const s = {
     card: {
@@ -322,7 +321,6 @@ export default function ProductCard({ product, index }) {
           </div>
           <div style={s.name}>{product.name}</div>
           <div style={s.desc}>{product.desc}</div>
-
           <div style={s.btnGroup}>
             <button
               style={s.btnWA}
@@ -359,7 +357,6 @@ export default function ProductCard({ product, index }) {
               Instagram
             </button>
           </div>
-
           <div style={s.igNote}>
             Instagram solo abre el chat. Para preguntar toma captura de la foto
             del producto.

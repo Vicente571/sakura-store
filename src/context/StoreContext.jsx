@@ -64,7 +64,7 @@ export function StoreProvider({ children }) {
     const product = {
       ...data,
       id: Date.now().toString(),
-      disponible: data.disponible ?? true,
+      disponible: String(data.disponible ?? true),
     };
     await apiPost("addProduct", product);
     setProducts((prev) => [...prev, product]);
@@ -72,9 +72,18 @@ export function StoreProvider({ children }) {
   }
 
   async function updateProduct(id, data) {
-    await apiPost("updateProduct", { id, ...data });
+    const payload = {
+      id,
+      ...data,
+      disponible: String(data.disponible),
+    };
+    await apiPost("updateProduct", payload);
     setProducts((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, ...data } : p)),
+      prev.map((p) =>
+        p.id === id
+          ? { ...p, ...data, disponible: String(data.disponible) }
+          : p,
+      ),
     );
   }
 

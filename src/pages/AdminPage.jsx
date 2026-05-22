@@ -49,11 +49,7 @@ export default function AdminPage() {
     setPPrice(p.price);
     setPDesc(p.desc);
     setPImg(p.image);
-    setPDisponible(
-      p.disponible === true ||
-        p.disponible === "true" ||
-        p.disponible === undefined,
-    );
+    setPDisponible(String(p.disponible).toLowerCase() === "true");
     setTab("products");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -761,7 +757,7 @@ export default function AdminPage() {
 
             {products.map((p, i) => {
               const cat = categories.find((c) => c.id === p.categoryId);
-              const disp = p.disponible === true || p.disponible === "true";
+              const disp = String(p.disponible).toLowerCase() === "true";
               return (
                 <div key={p.id} style={s.item}>
                   {p.image ? (
