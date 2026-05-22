@@ -17,8 +17,8 @@ async function apiPost(action, data) {
 }
 
 function parseDisponible(val) {
-  if (val === true || val === "true" || val === "TRUE") return true;
-  if (val === false || val === "false" || val === "FALSE") return false;
+  if (val === false || val === "false" || val === "FALSE" || val === 0)
+    return false;
   return true;
 }
 

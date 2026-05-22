@@ -49,7 +49,7 @@ export default function AdminPage() {
     setPPrice(p.price);
     setPDesc(p.desc);
     setPImg(p.image);
-    setPDisponible(p.disponible === true || p.disponible === "true");
+    setPDisponible(p.disponible === true);
     setTab("products");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -521,9 +521,7 @@ export default function AdminPage() {
   const focusStyle = (e) => (e.target.style.borderColor = "#e8609a");
   const blurStyle = (e) => (e.target.style.borderColor = "#2a1a22");
 
-  const disponiblesCount = products.filter(
-    (p) => p.disponible === true || p.disponible === "true",
-  ).length;
+  const disponiblesCount = products.filter((p) => p.disponible === true).length;
 
   return (
     <div style={s.page}>
