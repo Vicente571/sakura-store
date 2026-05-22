@@ -217,11 +217,11 @@ export default function CatalogPage() {
         <Header />
 
         <div style={s.hero}>
-          <span style={s.heroJp}>ジュエリー　＆　アクセサリー</span>
+          <span style={s.heroJp}>コスチュームジュエリー　＆　アクセサリー</span>
           <div style={s.heroTitle}>
-            Joyeria &amp; <span style={s.heroSpan}>Accesorios</span>
+            Bisuteria &amp; <span style={s.heroSpan}>Accesorios</span>
           </div>
-          <p style={s.heroSub}>Sakura Store　・　サクラストア</p>
+          <p style={s.heroSub}>Sakura Store　・　コスチュームジュエリ</p>
           <div style={s.accentLine} />
         </div>
 

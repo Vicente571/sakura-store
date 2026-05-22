@@ -6,12 +6,10 @@ const IG_USER = "storee.sakura";
 const JP_CHARS = ["桜", "愛", "美", "輝", "宝", "星", "月", "花", "光", "夢"];
 
 function buildWALink(product) {
-  const disponible = String(product.disponible).toLowerCase() === "true";
   const msg = encodeURIComponent(
     `Hola! Vi el producto *${product.name}* en Sakura Store y me interesa hacer un encargo.\n` +
       `💰 Precio: $${product.price}\n` +
       `${product.image ? "📸 Foto: " + product.image + "\n" : ""}` +
-      `${disponible ? "✅ Disponible" : "⏳ Consultar disponibilidad"}\n\n` +
       `¿Tienes disponibilidad? 🌸`,
   );
   return `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${msg}`;
@@ -28,7 +26,6 @@ export default function ProductCard({ product, index }) {
 
   const cat = categories.find((c) => c.id === product.categoryId);
   const jpChar = JP_CHARS[index % JP_CHARS.length];
-  const disp = String(product.disponible).toLowerCase() === "true";
 
   const s = {
     card: {
@@ -103,44 +100,13 @@ export default function ProductCard({ product, index }) {
       color: "rgba(232,96,154,0.45)",
       pointerEvents: "none",
     },
-    noDispBadge: {
-      position: "absolute",
-      top: 10,
-      left: 10,
-      background: "rgba(10,10,10,0.85)",
-      border: "1px solid #444",
-      borderRadius: 2,
-      padding: "3px 10px",
-      fontSize: 9,
-      letterSpacing: 1.5,
-      textTransform: "uppercase",
-      color: "#888",
-    },
-    dispBadge: {
-      position: "absolute",
-      top: 10,
-      left: 10,
-      background: "rgba(10,10,10,0.85)",
-      border: "1px solid rgba(76,175,80,0.4)",
-      borderRadius: 2,
-      padding: "3px 10px",
-      fontSize: 9,
-      letterSpacing: 1.5,
-      textTransform: "uppercase",
-      color: "#4caf50",
-    },
     body: {
       padding: "14px 16px 16px",
       flex: 1,
       display: "flex",
       flexDirection: "column",
     },
-    catRow: {
-      display: "flex",
-      alignItems: "center",
-      gap: 6,
-      marginBottom: 5,
-    },
+    catRow: { display: "flex", alignItems: "center", gap: 6, marginBottom: 5 },
     catTag: {
       fontSize: 9,
       letterSpacing: 2,
@@ -307,9 +273,6 @@ export default function ProductCard({ product, index }) {
               <span style={s.phLabel}>{cat?.name || "producto"}</span>
             </div>
           )}
-          <div style={disp ? s.dispBadge : s.noDispBadge}>
-            {disp ? "Disponible" : "No disponible"}
-          </div>
           <div style={s.corner}>{jpChar}</div>
         </div>
 
@@ -358,6 +321,7 @@ export default function ProductCard({ product, index }) {
             </button>
           </div>
           <div style={s.igNote}>
+            Whatsapp si manda con info y foto del producto que quieras.
             Instagram solo abre el chat. Para preguntar toma captura de la foto
             del producto.
           </div>

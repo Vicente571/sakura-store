@@ -16,16 +16,6 @@ async function apiPost(action, data) {
   return res.json();
 }
 
-// SI el valor es exactamente el string "si" => disponible
-// cualquier otra cosa => no disponible
-function parseDisp(val) {
-  return String(val).trim().toLowerCase() === "si";
-}
-
-function toDisp(bool) {
-  return bool ? "si" : "no";
-}
-
 export function StoreProvider({ children }) {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
@@ -39,11 +29,7 @@ export function StoreProvider({ children }) {
           apiGet("getProducts"),
         ]);
         if (Array.isArray(cats)) setCategories(cats);
-        if (Array.isArray(prods)) {
-          setProducts(
-            prods.map((p) => ({ ...p, disponible: parseDisp(p.disponible) })),
-          );
-        }
+        if (Array.isArray(prods)) setProducts(prods);
       } catch (err) {
         console.error("Error cargando datos:", err);
       } finally {
@@ -73,25 +59,17 @@ export function StoreProvider({ children }) {
   }
 
   async function addProduct(data) {
-    const product = {
-      ...data,
-      id: Date.now().toString(),
-      disponible: data.disponible === true,
-    };
-    await apiPost("addProduct", {
-      ...product,
-      disponible: toDisp(product.disponible),
-    });
+    const product = { ...data, id: Date.now().toString() };
+    await apiPost("addProduct", product);
     setProducts((prev) => [...prev, product]);
     return product;
   }
 
   async function updateProduct(id, data) {
-    const disponible = data.disponible === true;
-    const payload = { id, ...data, disponible: toDisp(disponible) };
+    const payload = { id, ...data };
     await apiPost("updateProduct", payload);
     setProducts((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, ...data, disponible } : p)),
+      prev.map((p) => (p.id === id ? { ...p, ...data } : p)),
     );
   }
 

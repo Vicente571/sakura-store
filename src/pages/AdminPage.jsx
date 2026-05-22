@@ -27,7 +27,6 @@ export default function AdminPage() {
   const [pPrice, setPPrice] = useState("");
   const [pDesc, setPDesc] = useState("");
   const [pImg, setPImg] = useState("");
-  const [pDisponible, setPDisponible] = useState(true);
 
   const [cName, setCName] = useState("");
   const [cJp, setCJp] = useState("");
@@ -44,7 +43,6 @@ export default function AdminPage() {
     setPPrice(p.price);
     setPDesc(p.desc);
     setPImg(p.image);
-    setPDisponible(p.disponible === true);
     setTab("products");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -56,7 +54,6 @@ export default function AdminPage() {
     setPPrice("");
     setPDesc("");
     setPImg("");
-    setPDisponible(true);
   }
 
   async function handleSubmitProduct(e) {
@@ -76,7 +73,6 @@ export default function AdminPage() {
       price: pPrice.trim(),
       desc: pDesc.trim(),
       image: pImg,
-      disponible: pDisponible,
     };
 
     if (editingProduct) {
@@ -122,8 +118,6 @@ export default function AdminPage() {
     await deleteProduct(id);
     showToast("Producto eliminado");
   }
-
-  const disponiblesCount = products.filter((p) => p.disponible === true).length;
 
   const s = {
     page: { minHeight: "100vh", background: "#0a0a0a", position: "relative" },
@@ -203,7 +197,7 @@ export default function AdminPage() {
     },
     statsRow: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(2, 1fr)",
       gap: 12,
       marginBottom: 28,
     },
@@ -433,15 +427,6 @@ export default function AdminPage() {
       padding: "2px 8px",
       borderRadius: 2,
     },
-    itemDisp: (d) => ({
-      fontSize: 9,
-      letterSpacing: 1,
-      textTransform: "uppercase",
-      color: d ? "#4caf50" : "#888",
-      border: `1px solid ${d ? "rgba(76,175,80,0.3)" : "#2a1a22"}`,
-      padding: "2px 8px",
-      borderRadius: 2,
-    }),
     actionBtns: { display: "flex", gap: 6, flexShrink: 0 },
     editBtn: {
       padding: "4px 10px",
@@ -538,11 +523,6 @@ export default function AdminPage() {
             <span style={s.statJp}>商品</span>
           </div>
           <div style={s.statCard}>
-            <span style={s.statNum}>{disponiblesCount}</span>
-            <span style={s.statLabel}>Disponibles</span>
-            <span style={s.statJp}>在庫あり</span>
-          </div>
-          <div style={s.statCard}>
             <span style={s.statNum}>{categories.length}</span>
             <span style={s.statLabel}>Categorias</span>
             <span style={s.statJp}>カテゴリー</span>
@@ -594,7 +574,6 @@ export default function AdminPage() {
                 </label>
                 <ImageUploader value={pImg} onChange={setPImg} />
               </div>
-
               <div style={s.group}>
                 <label style={s.label}>
                   Nombre <span style={s.labelJp}>商品名</span>
@@ -608,7 +587,6 @@ export default function AdminPage() {
                   onBlur={blurStyle}
                 />
               </div>
-
               <div style={s.row}>
                 <div style={s.group}>
                   <label style={s.label}>
@@ -643,7 +621,6 @@ export default function AdminPage() {
                   />
                 </div>
               </div>
-
               <div style={s.group}>
                 <label style={s.label}>
                   Descripcion <span style={s.labelJp}>説明</span>
@@ -657,23 +634,6 @@ export default function AdminPage() {
                   onBlur={blurStyle}
                 />
               </div>
-
-              <div style={s.group}>
-                <label style={s.label}>
-                  Disponibilidad <span style={s.labelJp}>在庫</span>
-                </label>
-                <select
-                  style={s.select}
-                  value={pDisponible ? "si" : "no"}
-                  onChange={(e) => setPDisponible(e.target.value === "si")}
-                  onFocus={focusStyle}
-                  onBlur={blurStyle}
-                >
-                  <option value="si">Disponible</option>
-                  <option value="no">No disponible</option>
-                </select>
-              </div>
-
               <div style={s.btnRow}>
                 <button
                   style={s.submitBtn}
@@ -710,16 +670,13 @@ export default function AdminPage() {
             <div style={s.listTitle}>
               Productos registrados ({products.length})
             </div>
-
             {products.length === 0 && (
               <div style={{ fontSize: 12, color: "#444", padding: "16px 0" }}>
                 Sin productos aun
               </div>
             )}
-
             {products.map((p, i) => {
               const cat = categories.find((c) => c.id === p.categoryId);
-              const disp = p.disponible === true;
               return (
                 <div key={p.id} style={s.item}>
                   {p.image ? (
@@ -734,9 +691,6 @@ export default function AdminPage() {
                     <div style={s.itemMeta}>
                       {p.price && <span style={s.itemPrice}>${p.price}</span>}
                       {cat && <span style={s.itemCat}>{cat.name}</span>}
-                      <span style={s.itemDisp(disp)}>
-                        {disp ? "Disponible" : "No disponible"}
-                      </span>
                     </div>
                   </div>
                   <div style={s.actionBtns}>
@@ -779,7 +733,6 @@ export default function AdminPage() {
           <div className="fade-in">
             <div style={s.sectionTitle}>Agregar Categoria</div>
             <span style={s.sectionJp}>カテゴリーを追加する</span>
-
             <div style={s.form}>
               <div style={s.row}>
                 <div style={s.group}>
@@ -822,10 +775,8 @@ export default function AdminPage() {
                 Crear categoria
               </button>
             </div>
-
             <div style={s.divider} />
             <div style={s.listTitle}>Categorias ({categories.length})</div>
-
             {categories.map((cat) => {
               const count = products.filter(
                 (p) => p.categoryId === cat.id,
