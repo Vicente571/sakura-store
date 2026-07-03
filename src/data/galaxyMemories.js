@@ -1,9 +1,12 @@
 // Datos de la galaxia secreta 🩷
-// Todo se guarda en el navegador (localStorage) desde la pantalla editora.
-// Si algun dia limpias el cache del navegador donde editaste, se perderan
-// los cambios locales y la galaxia volvera a mostrar estos valores de
-// ejemplo. Para respaldarlos, usa el boton "Copiar respaldo" en el editor
-// y guarda ese texto en un lugar seguro.
+// El contenido (fotos + frases + mensaje de bienvenida) se guarda en el
+// mismo backend (Google Apps Script) que usa la tienda, para que se vea
+// igual sin importar desde que celular, tablet o computadora entren al
+// link. localStorage se usa solo como cache: hace que la galaxia cargue
+// al instante y siga funcionando un momento si no hay internet, pero la
+// version que manda siempre es la del servidor.
+
+import { apiGet, apiPost } from "./api";
 
 export const MEMORIES_KEY = "sk_galaxy_memories";
 export const INTRO_KEY = "sk_galaxy_intro";
@@ -42,6 +45,7 @@ export const defaultMemories = [
   },
 ];
 
+// ── Cache local (localStorage) ────────────────────────────────
 export function loadMemories() {
   try {
     const raw = localStorage.getItem(MEMORIES_KEY);
@@ -66,4 +70,44 @@ export function loadIntro() {
 
 export function saveIntro(text) {
   localStorage.setItem(INTRO_KEY, text);
+}
+
+function cacheLocally({ intro, memories }) {
+  saveIntro(intro || defaultIntro);
+  saveMemories(memories && memories.length > 0 ? memories : defaultMemories);
+}
+
+// ── Backend compartido (Google Apps Script) ───────────────────
+// Trae el contenido guardado en el servidor. Si no hay internet o el
+// backend aun no soporta estas acciones, regresa lo que haya en cache
+// local (o los ejemplos de muestra) para que la pantalla nunca truene.
+export async function fetchGalaxy() {
+  try {
+    const remote = await apiGet("getGalaxy");
+    if (remote && !remote.error && Array.isArray(remote.memories)) {
+      cacheLocally(remote);
+      return {
+        intro: remote.intro || defaultIntro,
+        memories:
+          remote.memories.length > 0 ? remote.memories : defaultMemories,
+        synced: true,
+      };
+    }
+  } catch {
+    // sin internet o backend no disponible: usamos la cache local
+  }
+  return { intro: loadIntro(), memories: loadMemories(), synced: false };
+}
+
+// Guarda el contenido completo (recuerdos + mensaje) en el servidor para
+// que se vea igual en todos los dispositivos, y actualiza la cache local
+// al mismo tiempo para que quede como respaldo instantaneo.
+export async function saveGalaxy({ intro, memories }) {
+  cacheLocally({ intro, memories });
+  try {
+    const res = await apiPost("saveGalaxy", { intro, memories });
+    return !res?.error;
+  } catch {
+    return false;
+  }
 }

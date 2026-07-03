@@ -1,20 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { apiGet, apiPost } from "../data/api";
 
 const StoreContext = createContext(null);
-
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbyDRYsv9yO7dXr6RycvPieJioq5AM2R_TyRJR_S0QZ7mwadIr7l89hJ7SkBb6OVo2Yh/exec";
-
-async function apiGet(action, params = "") {
-  const res = await fetch(`${API_URL}?action=${action}${params}`);
-  return res.json();
-}
-
-async function apiPost(action, data) {
-  const encoded = encodeURIComponent(JSON.stringify(data));
-  const res = await fetch(`${API_URL}?action=${action}&data=${encoded}`);
-  return res.json();
-}
 
 export function StoreProvider({ children }) {
   const [categories, setCategories] = useState([]);

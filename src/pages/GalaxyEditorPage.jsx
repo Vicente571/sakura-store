@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ImageUploader from "../components/ImageUploader";
 import {
+  fetchGalaxy,
+  saveGalaxy,
   loadMemories,
-  saveMemories,
   loadIntro,
-  saveIntro,
 } from "../data/galaxyMemories";
 
 export default function GalaxyEditorPage() {
-  const [memories, setMemories] = useState([]);
-  const [intro, setIntro] = useState("");
+  const [memories, setMemories] = useState(() => loadMemories());
+  const [intro, setIntro] = useState(() => loadIntro());
+  const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
   const [image, setImage] = useState("");
   const [phrase, setPhrase] = useState("");
@@ -18,8 +19,16 @@ export default function GalaxyEditorPage() {
   const [showBackup, setShowBackup] = useState(false);
 
   useEffect(() => {
-    setMemories(loadMemories());
-    setIntro(loadIntro());
+    let alive = true;
+    fetchGalaxy().then(({ intro: i, memories: m }) => {
+      if (!alive) return;
+      setIntro(i);
+      setMemories(m);
+      setLoading(false);
+    });
+    return () => {
+      alive = false;
+    };
   }, []);
 
   function showToast(msg) {
@@ -27,9 +36,13 @@ export default function GalaxyEditorPage() {
     setTimeout(() => setToast(null), 2400);
   }
 
-  function persist(next) {
-    setMemories(next);
-    saveMemories(next);
+  async function persist(nextMemories, nextIntro = intro) {
+    setMemories(nextMemories);
+    const synced = await saveGalaxy({
+      intro: nextIntro,
+      memories: nextMemories,
+    });
+    return synced;
   }
 
   function clearForm() {
@@ -38,7 +51,7 @@ export default function GalaxyEditorPage() {
     setPhrase("");
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!image) {
       showToast("Agrega una foto");
@@ -49,20 +62,25 @@ export default function GalaxyEditorPage() {
       return;
     }
 
+    let next;
     if (editingId) {
-      persist(
-        memories.map((m) =>
-          m.id === editingId ? { ...m, image, phrase: phrase.trim() } : m,
-        ),
+      next = memories.map((m) =>
+        m.id === editingId ? { ...m, image, phrase: phrase.trim() } : m,
       );
-      showToast("Recuerdo actualizado");
     } else {
-      persist([
+      next = [
         ...memories,
         { id: Date.now().toString(), image, phrase: phrase.trim() },
-      ]);
-      showToast("Recuerdo agregado");
+      ];
     }
+    const synced = await persist(next);
+    showToast(
+      synced
+        ? editingId
+          ? "Recuerdo actualizado en todos lados"
+          : "Recuerdo agregado en todos lados"
+        : "Guardado en este dispositivo (sin conexion)",
+    );
     clearForm();
   }
 
@@ -73,16 +91,20 @@ export default function GalaxyEditorPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function handleDelete(id) {
+  async function handleDelete(id) {
     if (!window.confirm("Borrar este recuerdo?")) return;
-    persist(memories.filter((m) => m.id !== id));
+    const synced = await persist(memories.filter((m) => m.id !== id));
     if (editingId === id) clearForm();
-    showToast("Recuerdo eliminado");
+    showToast(synced ? "Recuerdo eliminado" : "Eliminado solo en este dispositivo");
   }
 
   function handleIntroChange(text) {
     setIntro(text);
-    saveIntro(text);
+  }
+
+  async function handleIntroBlur() {
+    const synced = await saveGalaxy({ intro, memories });
+    showToast(synced ? "Mensaje guardado" : "Guardado solo en este dispositivo");
   }
 
   function copyBackup() {
@@ -311,7 +333,11 @@ export default function GalaxyEditorPage() {
       <header style={s.header}>
         <div style={s.headerLeft}>
           <span style={s.headerTitle}>Editor de Galaxia 🩷</span>
-          <span style={s.headerSub}>Solo tu puedes ver esta pantalla</span>
+          <span style={s.headerSub}>
+            {loading
+              ? "Cargando contenido guardado..."
+              : "Solo tu puedes ver esta pantalla · se ve igual en todos tus dispositivos"}
+          </span>
         </div>
         <div style={s.headerRight}>
           <Link to="/admin" style={s.adminBtn}>
@@ -329,6 +355,7 @@ export default function GalaxyEditorPage() {
           style={s.input}
           value={intro}
           onChange={(e) => handleIntroChange(e.target.value)}
+          onBlur={handleIntroBlur}
           placeholder="Para mi niña, mi universo entero 🩷"
         />
 
