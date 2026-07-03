@@ -49,7 +49,7 @@ function StarField() {
         size={0.14}
         vertexColors
         transparent
-        opacity={0.85}
+        opacity={0.0}
         sizeAttenuation
         depthWrite={false}
       />
