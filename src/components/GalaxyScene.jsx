@@ -4,9 +4,8 @@ import { OrbitControls, Text, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 // ── Fondo de estrellas con tinte sakura ──────────────────────
-function StarField() {
+function StarField({ count = 6000, minRadius = 14, maxRadius = 46, spreadY = 26, size = 0.14 }) {
   const geometry = useMemo(() => {
-    const count = 3200;
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
     const palette = [
@@ -16,11 +15,14 @@ function StarField() {
       new THREE.Color("#ff8fc7"),
     ];
     for (let i = 0; i < count; i++) {
-      const radius = 14 + Math.random() * 46;
-      const angle = Math.random() * Math.PI * 2;
-      positions[i * 3] = Math.cos(angle) * radius;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 26;
-      positions[i * 3 + 2] = Math.sin(angle) * radius;
+      // distribucion esferica pareja para que se vean estrellas
+      // arriba, abajo y en todas direcciones, no solo en un anillo plano
+      const radius = minRadius + Math.random() * (maxRadius - minRadius);
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = radius * Math.cos(phi) * (spreadY / maxRadius) + (Math.random() - 0.5) * spreadY * 0.4;
+      positions[i * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
       const c = palette[Math.floor(Math.random() * palette.length)];
       colors[i * 3] = c.r;
       colors[i * 3 + 1] = c.g;
@@ -30,7 +32,7 @@ function StarField() {
     geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
     return geo;
-  }, []);
+  }, [count, minRadius, maxRadius, spreadY]);
 
   const ref = useRef();
   const matRef = useRef();
@@ -46,33 +48,14 @@ function StarField() {
     <points ref={ref} geometry={geometry}>
       <pointsMaterial
         ref={matRef}
-        size={0.14}
+        size={size}
         vertexColors
         transparent
-        opacity={0.0}
+        opacity={0.8}
         sizeAttenuation
         depthWrite={false}
       />
     </points>
-  );
-}
-
-// ── Neblina suave detras de la espiral ────────────────────────
-function Nebula() {
-  const ref = useRef();
-  useFrame((_, delta) => {
-    if (ref.current) ref.current.rotation.z += delta * 0.004;
-  });
-  return (
-    <mesh ref={ref} position={[0, 0, -20]}>
-      <planeGeometry args={[90, 90]} />
-      <meshBasicMaterial
-        color="#4a1a44"
-        transparent
-        opacity={0.35}
-        depthWrite={false}
-      />
-    </mesh>
   );
 }
 
@@ -191,8 +174,11 @@ export default function GalaxyScene({ memories, intro }) {
       <Canvas camera={{ position: [0, 5, 20], fov: 55 }}>
         <color attach="background" args={["#050208"]} />
         <ambientLight intensity={0.7} />
-        <Nebula />
-        <StarField />
+        {/* Varias capas de estrellas para que se vean llenas arriba, abajo
+            y a lo lejos sin importar cuanto te alejes con el zoom */}
+        <StarField count={5000} minRadius={12} maxRadius={60} spreadY={40} size={0.13} />
+        <StarField count={3500} minRadius={60} maxRadius={110} spreadY={90} size={0.22} />
+        <StarField count={2000} minRadius={110} maxRadius={170} spreadY={150} size={0.3} />
         <Suspense fallback={null}>
           {memories.map((m, i) => (
             <MemoryPlanet
@@ -227,7 +213,7 @@ export default function GalaxyScene({ memories, intro }) {
           rotateSpeed={0.55}
           zoomSpeed={0.9}
           minDistance={3.5}
-          maxDistance={42}
+          maxDistance={95}
           autoRotate={!focus}
           autoRotateSpeed={0.3}
         />
