@@ -9,7 +9,7 @@ import ImageUploader from "../components/ImageUploader";
 //    la direccion directamente en el navegador.
 //  - Ademas pide una contrasena antes de mostrar nada.
 //    Cambia la contrasena aqui abajo por la que tu quieras:
-const SECRET_PASSWORD = "cumple2024";
+const SECRET_PASSWORD = "cumple2026";
 //
 //  - El titulo y el nombre tambien se pueden cambiar aqui:
 const PERSON_NAME = "Mi Amor";

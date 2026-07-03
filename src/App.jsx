@@ -24,7 +24,7 @@ export default function App() {
                 menu, solo se entra escribiendo la URL directamente.
                 Cambia esta ruta por la que quieras en BirthdayPage.jsx
                 comentario y aqui, para mayor discrecion. */}
-            <Route path="/cumple2024" element={<BirthdayPage />} />
+            <Route path="/cumple2026" element={<BirthdayPage />} />
           </Routes>
         </AuthProvider>
       </StoreProvider>
