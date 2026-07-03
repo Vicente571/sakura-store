@@ -500,6 +500,20 @@ export default function AdminPage() {
           >
             Ver tienda
           </Link>
+          <Link
+            to="/mi-universo/editar"
+            style={s.viewBtn}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "#e8609a";
+              e.currentTarget.style.color = "#e8609a";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "#2a1a22";
+              e.currentTarget.style.color = "#888";
+            }}
+          >
+            Galaxia
+          </Link>
           <button
             style={s.logoutBtn}
             onClick={logout}
