@@ -95,7 +95,7 @@ Para que lo que agregues se vea **en cualquier celular o computadora** (y no
 solo en el navegador donde lo editaste), el contenido se guarda en el mismo
 backend de Google Apps Script que usan los productos. Si tu Apps Script
 todavia no tiene las acciones `getGalaxy` / `saveGalaxy`, agrega esto a tu
-`Code.gs` (usa `PropertiesService`, asi no necesitas tocar tu hoja de
+`Code.gs` (usa `PropertiesService`, así no necesitas tocar tu hoja de
 calculo):
 
 ```js

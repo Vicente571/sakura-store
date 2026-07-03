@@ -73,7 +73,10 @@ export function saveIntro(text) {
 }
 
 function cacheLocally({ intro, memories }) {
-  saveIntro(intro || defaultIntro);
+  // Un mensaje vacio vuelve al mensaje de ejemplo (igual que loadIntro),
+  // y una lista vacia de recuerdos vuelve a los ejemplos de muestra para
+  // que la pantalla nunca se quede completamente vacia.
+  saveIntro(intro && intro.trim() ? intro : defaultIntro);
   saveMemories(memories && memories.length > 0 ? memories : defaultMemories);
 }
 

@@ -37,7 +37,7 @@ function StarField() {
   useFrame(({ clock }, delta) => {
     if (ref.current) ref.current.rotation.y += delta * 0.012;
     if (matRef.current) {
-      // titileo suave del brillo general de las estrellas
+      // titilar suave del brillo general de las estrellas
       matRef.current.opacity = 0.72 + Math.sin(clock.elapsedTime * 0.9) * 0.13;
     }
   });

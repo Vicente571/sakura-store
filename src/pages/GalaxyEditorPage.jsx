@@ -79,7 +79,7 @@ export default function GalaxyEditorPage() {
         ? editingId
           ? "Recuerdo actualizado en todos lados"
           : "Recuerdo agregado en todos lados"
-        : "Guardado en este dispositivo (sin conexion)",
+        : "Guardado en este dispositivo (sin conexión)",
     );
     clearForm();
   }
@@ -102,8 +102,9 @@ export default function GalaxyEditorPage() {
     setIntro(text);
   }
 
-  async function handleIntroBlur() {
-    const synced = await saveGalaxy({ intro, memories });
+  async function handleIntroBlur(e) {
+    const text = e.target.value;
+    const synced = await saveGalaxy({ intro: text, memories });
     showToast(synced ? "Mensaje guardado" : "Guardado solo en este dispositivo");
   }
 
