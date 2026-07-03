@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from "react";
 import GalaxyScene from "../components/GalaxyScene";
-import { loadMemories, loadIntro } from "../data/galaxyMemories";
+import {
+  fetchGalaxy,
+  loadMemories,
+  loadIntro,
+} from "../data/galaxyMemories";
 
 export default function GalaxyViewPage() {
-  const [memories, setMemories] = useState([]);
-  const [intro, setIntro] = useState("");
+  const [memories, setMemories] = useState(() => loadMemories());
+  const [intro, setIntro] = useState(() => loadIntro());
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setMemories(loadMemories());
-    setIntro(loadIntro());
+    let alive = true;
+    fetchGalaxy().then(({ intro: i, memories: m }) => {
+      if (!alive) return;
+      setIntro(i);
+      setMemories(m);
+      setLoading(false);
+    });
+    return () => {
+      alive = false;
+    };
   }, []);
 
   return (
@@ -22,6 +35,25 @@ export default function GalaxyViewPage() {
       }}
     >
       <GalaxyScene memories={memories} intro={intro} />
+
+      {loading && (
+        <div
+          style={{
+            position: "absolute",
+            top: 16,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            pointerEvents: "none",
+            fontSize: 10,
+            letterSpacing: 2,
+            textTransform: "uppercase",
+            color: "rgba(255,227,242,0.4)",
+          }}
+        >
+          Cargando universo...
+        </div>
+      )}
 
       <div
         style={{

@@ -33,13 +33,19 @@ function StarField() {
   }, []);
 
   const ref = useRef();
-  useFrame((_, delta) => {
+  const matRef = useRef();
+  useFrame(({ clock }, delta) => {
     if (ref.current) ref.current.rotation.y += delta * 0.012;
+    if (matRef.current) {
+      // titilar suave del brillo general de las estrellas
+      matRef.current.opacity = 0.72 + Math.sin(clock.elapsedTime * 0.9) * 0.13;
+    }
   });
 
   return (
     <points ref={ref} geometry={geometry}>
       <pointsMaterial
+        ref={matRef}
         size={0.14}
         vertexColors
         transparent
@@ -48,6 +54,25 @@ function StarField() {
         depthWrite={false}
       />
     </points>
+  );
+}
+
+// ── Neblina suave detras de la espiral ────────────────────────
+function Nebula() {
+  const ref = useRef();
+  useFrame((_, delta) => {
+    if (ref.current) ref.current.rotation.z += delta * 0.004;
+  });
+  return (
+    <mesh ref={ref} position={[0, 0, -20]}>
+      <planeGeometry args={[90, 90]} />
+      <meshBasicMaterial
+        color="#4a1a44"
+        transparent
+        opacity={0.35}
+        depthWrite={false}
+      />
+    </mesh>
   );
 }
 
@@ -72,14 +97,29 @@ function useSpiralPositions(count) {
 function MemoryPlanet({ memory, position, onFocus }) {
   const texture = useTexture(memory.image);
   const meshRef = useRef();
+  const glowRef = useRef();
   const [hovered, setHovered] = useState(false);
 
   useFrame((state) => {
     if (meshRef.current) meshRef.current.lookAt(state.camera.position);
+    if (glowRef.current) {
+      const pulse = 1 + Math.sin(state.clock.elapsedTime * 1.4) * 0.05;
+      glowRef.current.scale.setScalar(pulse * (hovered ? 1.15 : 1));
+    }
   });
 
   return (
     <group position={position}>
+      <mesh position={[0, 0, -0.05]} ref={glowRef}>
+        <circleGeometry args={[1.55, 48]} />
+        <meshBasicMaterial
+          color="#ff9fd4"
+          transparent
+          opacity={hovered ? 0.28 : 0.16}
+          toneMapped={false}
+          depthWrite={false}
+        />
+      </mesh>
       <mesh
         ref={meshRef}
         scale={hovered ? 1.15 : 1}
@@ -151,6 +191,7 @@ export default function GalaxyScene({ memories, intro }) {
       <Canvas camera={{ position: [0, 5, 20], fov: 55 }}>
         <color attach="background" args={["#050208"]} />
         <ambientLight intensity={0.7} />
+        <Nebula />
         <StarField />
         <Suspense fallback={null}>
           {memories.map((m, i) => (
@@ -187,6 +228,8 @@ export default function GalaxyScene({ memories, intro }) {
           zoomSpeed={0.9}
           minDistance={3.5}
           maxDistance={42}
+          autoRotate={!focus}
+          autoRotateSpeed={0.3}
         />
       </Canvas>
 

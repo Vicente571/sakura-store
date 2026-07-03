@@ -80,12 +80,52 @@ npm run build
 
 ## Almacenamiento
 
-Los productos y categorías se guardan en **localStorage** del navegador.
-Los datos persisten aunque se cierre el navegador.
+Los productos y categorías se guardan en el backend de Google Apps Script /
+Google Sheets configurado en `src/data/api.js`.
 
-> Nota: si Daniela cambia de dispositivo o limpia el navegador, los datos locales
-> se pierden. Para respaldo, considera exportar los datos periódicamente
-> (se puede agregar esa función más adelante).
+---
+
+## Galaxia secreta (`/mi-universo`)
+
+Pantalla oculta (sin enlaces desde el sitio publico ni desde `/admin`) que
+muestra fotos y frases como "planetas" flotando en una galaxia 3D. Se edita
+desde `/mi-universo/editar` con las mismas credenciales de `/admin`.
+
+Para que lo que agregues se vea **en cualquier celular o computadora** (y no
+solo en el navegador donde lo editaste), el contenido se guarda en el mismo
+backend de Google Apps Script que usan los productos. Si tu Apps Script
+todavia no tiene las acciones `getGalaxy` / `saveGalaxy`, agrega esto a tu
+`Code.gs` (usa `PropertiesService`, así no necesitas tocar tu hoja de
+calculo):
+
+```js
+function doGet(e) {
+  const action = e.parameter.action;
+
+  if (action === 'getGalaxy') {
+    const raw = PropertiesService.getScriptProperties().getProperty('galaxy');
+    return respond(raw ? JSON.parse(raw) : { intro: '', memories: [] });
+  }
+
+  if (action === 'saveGalaxy') {
+    const data = JSON.parse(e.parameter.data);
+    PropertiesService.getScriptProperties().setProperty('galaxy', JSON.stringify(data));
+    return respond({ ok: true });
+  }
+
+  // ... el resto de tus acciones existentes (getProducts, getCategories, etc.)
+}
+
+function respond(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+```
+
+Mientras no agregues esas acciones, la galaxia sigue funcionando pero cada
+dispositivo vera solo lo guardado en su propio navegador (localStorage), tal
+como antes.
 
 ---
 
