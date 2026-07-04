@@ -1,210 +1,9 @@
 import React, { useState, useRef } from 'react'
 import { useImageUpload, uploadConfigured } from '../hooks/useImageUpload'
 
-// Image editor modal for adjusting and centering images
-function ImageEditor({ imageData, onSave, onCancel }) {
-  const [offsetX, setOffsetX] = useState(0)
-  const [offsetY, setOffsetY] = useState(0)
-  const [scale, setScale] = useState(1)
-  const canvasRef = useRef()
-
-  function handleSave() {
-    if (!canvasRef.current) return
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-    
-    const img = new Image()
-    img.onload = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.save()
-      ctx.translate(canvas.width / 2, canvas.height / 2)
-      ctx.scale(scale, scale)
-      ctx.drawImage(
-        img,
-        -img.width / 2 + offsetX,
-        -img.height / 2 + offsetY
-      )
-      ctx.restore()
-      
-      canvas.toBlob(blob => {
-        const url = URL.createObjectURL(blob)
-        onSave(url)
-      })
-    }
-    img.src = imageData
-  }
-
-  React.useEffect(() => {
-    const img = new Image()
-    img.onload = () => {
-      const canvas = canvasRef.current
-      const maxSize = 400
-      const scale = Math.min(maxSize / img.width, maxSize / img.height)
-      canvas.width = img.width * scale
-      canvas.height = img.height * scale
-      
-      const ctx = canvas.getContext('2d')
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-    }
-    img.src = imageData
-  }, [imageData])
-
-  const s = {
-    overlay: {
-      position: 'fixed',
-      inset: 0,
-      background: 'rgba(0,0,0,0.7)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 10000,
-      backdropFilter: 'blur(4px)',
-    },
-    modal: {
-      background: '#0d0810',
-      border: '1px solid #2a1a22',
-      borderRadius: 8,
-      padding: 24,
-      maxWidth: 500,
-      width: '90%',
-    },
-    title: {
-      fontSize: 14,
-      letterSpacing: 2,
-      textTransform: 'uppercase',
-      color: '#e8609a',
-      marginBottom: 16,
-      fontWeight: 700,
-    },
-    preview: {
-      marginBottom: 20,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      background: '#050208',
-      borderRadius: 4,
-      overflow: 'hidden',
-      minHeight: 320,
-    },
-    canvas: {
-      maxWidth: '100%',
-      maxHeight: '100%',
-    },
-    controls: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 12,
-      marginBottom: 16,
-    },
-    control: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 6,
-    },
-    label: {
-      fontSize: 11,
-      letterSpacing: 1,
-      textTransform: 'uppercase',
-      color: '#888',
-    },
-    slider: {
-      width: '100%',
-      cursor: 'pointer',
-    },
-    buttons: {
-      display: 'flex',
-      gap: 10,
-    },
-    btn: {
-      flex: 1,
-      padding: '10px 16px',
-      border: '1px solid #2a1a22',
-      borderRadius: 4,
-      fontSize: 11,
-      letterSpacing: 2,
-      textTransform: 'uppercase',
-      cursor: 'pointer',
-      transition: 'all 0.2s',
-    },
-    cancelBtn: {
-      background: 'transparent',
-      color: '#888',
-    },
-    saveBtn: {
-      background: '#e8609a',
-      color: '#0a0a0a',
-      fontWeight: 700,
-      border: 'none',
-    },
-  }
-
-  return (
-    <div style={s.overlay} onClick={onCancel}>
-      <div style={s.modal} onClick={e => e.stopPropagation()}>
-        <div style={s.title}>Ajustar foto 🎨</div>
-        <div style={s.preview}>
-          <canvas ref={canvasRef} style={s.canvas} />
-        </div>
-        <div style={s.controls}>
-          <div style={s.control}>
-            <label style={s.label}>Mover horizontalmente</label>
-            <input
-              type="range"
-              min="-100"
-              max="100"
-              value={offsetX}
-              onChange={e => setOffsetX(parseInt(e.target.value))}
-              style={s.slider}
-            />
-          </div>
-          <div style={s.control}>
-            <label style={s.label}>Mover verticalmente</label>
-            <input
-              type="range"
-              min="-100"
-              max="100"
-              value={offsetY}
-              onChange={e => setOffsetY(parseInt(e.target.value))}
-              style={s.slider}
-            />
-          </div>
-          <div style={s.control}>
-            <label style={s.label}>Zoom</label>
-            <input
-              type="range"
-              min="0.5"
-              max="2"
-              step="0.1"
-              value={scale}
-              onChange={e => setScale(parseFloat(e.target.value))}
-              style={s.slider}
-            />
-          </div>
-        </div>
-        <div style={s.buttons}>
-          <button
-            style={{ ...s.btn, ...s.cancelBtn }}
-            onClick={onCancel}
-          >
-            Cancelar
-          </button>
-          <button
-            style={{ ...s.btn, ...s.saveBtn }}
-            onClick={handleSave}
-          >
-            Guardar ajustes
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function ImageUploader({ value, onChange }) {
-  const [preview, setPreview] = useState(value || null)
+  const [preview,  setPreview]  = useState(value || null)
   const [dragging, setDragging] = useState(false)
-  const [showEditor, setShowEditor] = useState(false)
-  const [editorImage, setEditorImage] = useState(null)
   const { upload, uploading, progress, error } = useImageUpload()
   const inputRef = useRef()
 
@@ -213,28 +12,13 @@ export default function ImageUploader({ value, onChange }) {
 
     // Preview local inmediato mientras sube
     const reader = new FileReader()
-    reader.onload = e => {
-      setEditorImage(e.target.result)
-      setShowEditor(true)
-    }
+    reader.onload = e => setPreview(e.target.result)
     reader.readAsDataURL(file)
-  }
 
-  async function handleEditorSave(editedImageUrl) {
-    setShowEditor(false)
-    setPreview(editedImageUrl)
-    
-    // Convert data URL to blob and upload
-    const response = await fetch(editedImageUrl)
-    const blob = await response.blob()
-    
-    const url = await upload(blob)
+    const url = await upload(file)
     if (url) {
       setPreview(url)
       onChange(url)
-    } else {
-      setPreview(editedImageUrl)
-      onChange(editedImageUrl)
     }
   }
 
@@ -258,8 +42,6 @@ export default function ImageUploader({ value, onChange }) {
       height: 220,
       objectFit: 'cover',
       display: 'block',
-      cursor: 'pointer',
-      transition: 'opacity 0.2s',
     },
     empty: {
       display: 'flex',
@@ -287,8 +69,7 @@ export default function ImageUploader({ value, onChange }) {
     },
     changeBtn: {
       position: 'absolute',
-      bottom: 10,
-      right: 10,
+      bottom: 10, right: 10,
       padding: '5px 14px',
       background: 'rgba(10,10,10,0.85)',
       border: '1px solid rgba(232,96,154,0.4)',
@@ -298,13 +79,10 @@ export default function ImageUploader({ value, onChange }) {
       textTransform: 'uppercase',
       borderRadius: 2,
       cursor: 'pointer',
-      transition: 'all 0.2s',
     },
     progressWrap: {
       position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
+      bottom: 0, left: 0, right: 0,
       height: 3,
       background: '#1a0a14',
     },
@@ -378,25 +156,11 @@ export default function ImageUploader({ value, onChange }) {
       >
         {preview ? (
           <>
-            <img
-              src={preview}
-              alt="preview"
-              style={s.preview}
-              onMouseEnter={e => e.target.style.opacity = '0.85'}
-              onMouseLeave={e => e.target.style.opacity = '1'}
-            />
+            <img src={preview} alt="preview" style={s.preview} />
             {!uploading && (
               <button
                 style={s.changeBtn}
                 onClick={e => { e.stopPropagation(); inputRef.current.click() }}
-                onMouseEnter={e => {
-                  e.target.style.background = 'rgba(10,10,10,0.95)'
-                  e.target.style.borderColor = 'rgba(232,96,154,0.6)'
-                }}
-                onMouseLeave={e => {
-                  e.target.style.background = 'rgba(10,10,10,0.85)'
-                  e.target.style.borderColor = 'rgba(232,96,154,0.4)'
-                }}
               >
                 Cambiar foto
               </button>
@@ -434,14 +198,6 @@ export default function ImageUploader({ value, onChange }) {
       )}
 
       {error && <div style={s.errorBox}>Error al subir: {error}</div>}
-
-      {showEditor && (
-        <ImageEditor
-          imageData={editorImage}
-          onSave={handleEditorSave}
-          onCancel={() => setShowEditor(false)}
-        />
-      )}
 
       <input
         ref={inputRef}
