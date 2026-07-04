@@ -83,6 +83,10 @@ function MemoryPlanet({ memory, position, onFocus }) {
   const glowRef = useRef();
   const [hovered, setHovered] = useState(false);
 
+  // Compute aspect ratio correction for proper image display
+  const aspectRatio = texture.source.data?.width / texture.source.data?.height || 1;
+  const scale = aspectRatio > 1 ? [aspectRatio, 1, 1] : [1, 1 / aspectRatio, 1];
+
   useFrame((state) => {
     if (meshRef.current) meshRef.current.lookAt(state.camera.position);
     if (glowRef.current) {
@@ -105,7 +109,7 @@ function MemoryPlanet({ memory, position, onFocus }) {
       </mesh>
       <mesh
         ref={meshRef}
-        scale={hovered ? 1.15 : 1}
+        scale={hovered ? [scale[0] * 1.15, scale[1] * 1.15, 1] : scale}
         onClick={(e) => {
           e.stopPropagation();
           onFocus(memory, position);
@@ -116,11 +120,11 @@ function MemoryPlanet({ memory, position, onFocus }) {
         }}
         onPointerOut={() => setHovered(false)}
       >
-        <circleGeometry args={[1.15, 48]} />
+        <planeGeometry args={[2.3, 2.3]} />
         <meshBasicMaterial map={texture} transparent toneMapped={false} />
       </mesh>
-      <mesh position={[0, 0, -0.02]}>
-        <ringGeometry args={[1.16, 1.34, 48]} />
+      <mesh position={[0, 0, -0.02]} scale={scale}>
+        <circleGeometry args={[1.15, 48]} />
         <meshBasicMaterial
           color="#ffb3d9"
           transparent
@@ -173,12 +177,34 @@ export default function GalaxyScene({ memories, intro }) {
     <div style={{ width: "100%", height: "100%" }}>
       <Canvas camera={{ position: [0, 5, 20], fov: 55 }}>
         <color attach="background" args={["#050208"]} />
-        <ambientLight intensity={0.7} />
+        <ambientLight intensity={0.85} />
+        
+        {/* Subtle directional light for depth */}
+        <directionalLight 
+          position={[10, 15, 10]} 
+          intensity={0.35} 
+          color="#ff9fd4"
+          castShadow
+        />
+        
         {/* Varias capas de estrellas para que se vean llenas arriba, abajo
             y a lo lejos sin importar cuanto te alejes con el zoom */}
         <StarField count={5000} minRadius={12} maxRadius={60} spreadY={40} size={0.13} />
         <StarField count={3500} minRadius={60} maxRadius={110} spreadY={90} size={0.22} />
         <StarField count={2000} minRadius={110} maxRadius={170} spreadY={150} size={0.3} />
+        
+        {/* Subtle nebula-like glow at center */}
+        <mesh position={[0, 0, 0]}>
+          <sphereGeometry args={[35, 32, 32]} />
+          <meshBasicMaterial
+            color="#2a0a1a"
+            transparent
+            opacity={0.08}
+            toneMapped={false}
+            side={2}
+          />
+        </mesh>
+        
         <Suspense fallback={null}>
           {memories.map((m, i) => (
             <MemoryPlanet
@@ -199,6 +225,7 @@ export default function GalaxyScene({ memories, intro }) {
               color="#ffd7ec"
               outlineWidth={0.02}
               outlineColor="#2a0620"
+              anchorZ={0}
             >
               {intro}
             </Text>
@@ -235,6 +262,16 @@ export default function GalaxyScene({ memories, intro }) {
             textTransform: "uppercase",
             borderRadius: 20,
             backdropFilter: "blur(6px)",
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.background = "rgba(10,10,10,0.9)";
+            e.target.style.borderColor = "rgba(232,96,154,0.6)";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.background = "rgba(10,10,10,0.75)";
+            e.target.style.borderColor = "rgba(232,96,154,0.4)";
           }}
         >
           ← Volver a la galaxia
