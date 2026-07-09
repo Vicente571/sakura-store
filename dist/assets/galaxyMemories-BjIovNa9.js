@@ -1,4 +1,4 @@
-import{a as l,b as f}from"./index-B8s3rt-E.js";const i="sk_galaxy_memories",n="sk_galaxy_intro",o="Para mi niña, mi universo entero 🩷";function r(a,e){const t=`
+import{a as l,b as f}from"./index-pzllFItH.js";const i="sk_galaxy_memories",n="sk_galaxy_intro",o="Para mi niña, mi universo entero 🩷";function r(a,e){const t=`
     <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">
       <defs>
         <radialGradient id="g" cx="50%" cy="45%" r="70%">
