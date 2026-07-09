@@ -59,44 +59,18 @@ function StarField({ count = 6000, minRadius = 14, maxRadius = 46, spreadY = 26,
   );
 }
 
-// ── Posiciones dispersadas tipo galaxia realista ──────────────
+// ── Posiciones en espiral tipo galaxia ────────────────────────
 function useSpiralPositions(count) {
   return useMemo(() => {
-    const positions = [];
     const goldenAngle = Math.PI * (3 - Math.sqrt(5));
-    
+    const positions = [];
     for (let i = 0; i < count; i++) {
-      const t = i / count;
-      
-      // Usar Gauss para concentración en el centro con dispersión hacia afuera
-      // Box-Muller transform para distribución normal
-      const u1 = Math.random();
-      const u2 = Math.random();
-      const gaussian = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-      
-      // Radio con distribución exponencial modificada (más concentrado en centro, dispersado hacia afuera)
-      const radiusMax = 22;
-      const radius = Math.abs(gaussian * 4.5) + Math.random() * 1.2;
-      const clampedRadius = Math.min(radius, radiusMax);
-      
-      // Ángulo con múltiples brazos espirales para crear patrón de galaxia
-      const spiralPhase = i * goldenAngle;
-      const angle = spiralPhase + Math.sin(spiralPhase * 0.5) * 0.8;
-      
-      // Posición en coordenadas esféricas
-      const x = Math.cos(angle) * clampedRadius;
-      const z = Math.sin(angle) * clampedRadius;
-      
-      // Variación en Y para dispersión vertical (como los brazos galácticos)
-      const yAmplitude = Math.sin(spiralPhase * 0.3) * 2.5 + Math.sin(spiralPhase) * 1.2;
-      const y = (gaussian * 1.5 + Math.random() * 0.8) + yAmplitude * 0.4;
-      
-      // Agregar pequeña aleatoriedad para que no sea demasiado perfecto
-      positions.push([
-        x + (Math.random() - 0.5) * 0.3,
-        y + (Math.random() - 0.5) * 0.2,
-        z + (Math.random() - 0.5) * 0.3,
-      ]);
+      const radius = 3.2 + i * 1.45;
+      const angle = i * goldenAngle;
+      const x = Math.cos(angle) * radius;
+      const z = Math.sin(angle) * radius;
+      const y = Math.sin(i * 1.35) * 1.7;
+      positions.push([x, y, z]);
     }
     return positions;
   }, [count]);
