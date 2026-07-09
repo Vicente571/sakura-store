@@ -65,17 +65,11 @@ function useSpiralPositions(count) {
     const goldenAngle = Math.PI * (3 - Math.sqrt(5));
     const positions = [];
     for (let i = 0; i < count; i++) {
-      // radio base mas grande y crecimiento mas fuerte para que las fotos
-      // se vean bien separadas entre si, no amontonadas al centro
-      const radius = 6 + i * 2.6;
+      const radius = 3.2 + i * 1.45;
       const angle = i * goldenAngle;
-      const jitterX = (Math.random() - 0.5) * 2.4;
-      const jitterZ = (Math.random() - 0.5) * 2.4;
-      const x = Math.cos(angle) * radius + jitterX;
-      const z = Math.sin(angle) * radius + jitterZ;
-      // mayor amplitud vertical (arriba/abajo) para que se vea disperso
-      // en todas direcciones y no solo aplastado en el plano horizontal
-      const y = Math.sin(i * 1.35) * 4.2 + (Math.random() - 0.5) * 2.2;
+      const x = Math.cos(angle) * radius;
+      const z = Math.sin(angle) * radius;
+      const y = Math.sin(i * 1.35) * 1.7;
       positions.push([x, y, z]);
     }
     return positions;
@@ -177,7 +171,7 @@ export default function GalaxyScene({ memories, intro }) {
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
-      <Canvas camera={{ position: [0, 6, 26], fov: 55 }}>
+      <Canvas camera={{ position: [0, 5, 20], fov: 55 }}>
         <color attach="background" args={["#050208"]} />
         <ambientLight intensity={0.7} />
         {/* Varias capas de estrellas para que se vean llenas arriba, abajo
@@ -219,7 +213,7 @@ export default function GalaxyScene({ memories, intro }) {
           rotateSpeed={0.55}
           zoomSpeed={0.9}
           minDistance={3.5}
-          maxDistance={140}
+          maxDistance={95}
           autoRotate={!focus}
           autoRotateSpeed={0.3}
         />
