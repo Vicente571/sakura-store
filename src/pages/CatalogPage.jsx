@@ -18,7 +18,7 @@ export default function CatalogPage() {
   const s = {
     page: {
       minHeight: "100vh",
-      background: "#04141b",
+      background: "#0a0a0a",
       position: "relative",
       overflowX: "hidden",
     },
@@ -30,7 +30,7 @@ export default function CatalogPage() {
       bottom: 0,
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 130,
-      color: "rgba(52,200,255,0.025)",
+      color: "rgba(220,80,130,0.025)",
       pointerEvents: "none",
       overflow: "hidden",
       lineHeight: 1,
@@ -48,7 +48,7 @@ export default function CatalogPage() {
     heroJp: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 11,
-      color: "rgba(52,200,255,0.4)",
+      color: "rgba(220,80,130,0.4)",
       letterSpacing: 5,
       display: "block",
       marginBottom: 14,
@@ -57,28 +57,28 @@ export default function CatalogPage() {
       fontFamily: "'Bebas Neue', sans-serif",
       fontSize: 58,
       letterSpacing: 7,
-      color: "#e6fbff",
+      color: "#f0e0e8",
       lineHeight: 1,
       marginBottom: 10,
     },
-    heroSpan: { color: "#34c8ff" },
+    heroSpan: { color: "#e8609a" },
     heroSub: {
       fontSize: 11,
-      color: "#5f7f89",
+      color: "#555",
       letterSpacing: 3,
       textTransform: "uppercase",
     },
     accentLine: {
       width: 60,
       height: 2,
-      background: "#34c8ff",
+      background: "#e8609a",
       margin: "16px auto 0",
     },
     deliveryBanner: {
       margin: "0 24px 24px",
-      background: "#0a1d24",
-      border: "1px solid #145767",
-      borderLeft: "3px solid #34c8ff",
+      background: "#111014",
+      border: "1px solid #2a1020",
+      borderLeft: "3px solid #e8609a",
       borderRadius: 2,
       padding: "13px 18px",
     },
@@ -86,14 +86,14 @@ export default function CatalogPage() {
       fontSize: 9,
       letterSpacing: 2,
       textTransform: "uppercase",
-      color: "#34c8ff",
+      color: "#e8609a",
       marginBottom: 5,
       fontWeight: 700,
     },
-    dbCities: { fontSize: 13, color: "#9fe7d5", marginBottom: 4 },
-    dbCitiesStrong: { color: "#e6fbff", fontWeight: 600 },
-    dbSoon: { fontSize: 11, color: "#5f7f89" },
-    dbSoonSpan: { color: "rgba(88,224,164,0.6)" },
+    dbCities: { fontSize: 13, color: "#c0a0b0", marginBottom: 4 },
+    dbCitiesStrong: { color: "#f0e0e8", fontWeight: 600 },
+    dbSoon: { fontSize: 11, color: "#555" },
+    dbSoonSpan: { color: "rgba(232,96,154,0.6)" },
     catsWrap: {
       display: "flex",
       gap: 8,
@@ -109,14 +109,14 @@ export default function CatalogPage() {
       fontFamily: "'Bebas Neue', sans-serif",
       fontSize: 13,
       letterSpacing: 5,
-      color: "#47666f",
+      color: "#444",
       textTransform: "uppercase",
     },
-    sectionLine: { flex: 1, height: 1, background: "#123540" },
+    sectionLine: { flex: 1, height: 1, background: "#1e0e18" },
     sectionJp: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 11,
-      color: "rgba(88,224,164,0.25)",
+      color: "rgba(232,96,154,0.25)",
       fontWeight: "normal",
       letterSpacing: 2,
     },
@@ -129,12 +129,12 @@ export default function CatalogPage() {
     empty: {
       textAlign: "center",
       padding: "60px 24px",
-      color: "#47666f",
+      color: "#444",
     },
     emptyJp: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 28,
-      color: "rgba(52,200,255,0.15)",
+      color: "rgba(232,96,154,0.15)",
       display: "block",
       marginBottom: 12,
     },
@@ -143,9 +143,9 @@ export default function CatalogPage() {
       padding: "20px 24px",
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 12,
-      color: "rgba(52,200,255,0.12)",
+      color: "rgba(220,80,130,0.12)",
       letterSpacing: 6,
-      borderTop: "1px solid #0d313b",
+      borderTop: "1px solid #1a0a12",
     },
   };
 
@@ -154,7 +154,7 @@ export default function CatalogPage() {
       <div
         style={{
           minHeight: "100vh",
-          background: "#04141b",
+          background: "#0a0a0a",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -167,7 +167,7 @@ export default function CatalogPage() {
             fontFamily: "'Bebas Neue', sans-serif",
             fontSize: 32,
             letterSpacing: 6,
-            color: "#34c8ff",
+            color: "#e8609a",
           }}
         >
           Sakura Store 🌸
@@ -176,7 +176,7 @@ export default function CatalogPage() {
           style={{
             fontFamily: "'Noto Serif JP', serif",
             fontSize: 13,
-            color: "rgba(52,200,255,0.4)",
+            color: "rgba(232,96,154,0.4)",
             letterSpacing: 4,
           }}
         >
@@ -186,7 +186,7 @@ export default function CatalogPage() {
           style={{
             width: 200,
             height: 2,
-            background: "#0d313b",
+            background: "#1a0a14",
             borderRadius: 2,
             overflow: "hidden",
           }}
@@ -194,7 +194,7 @@ export default function CatalogPage() {
           <div
             style={{
               height: "100%",
-              background: "#34c8ff",
+              background: "#e8609a",
               borderRadius: 2,
               animation: "loading 1.5s ease-in-out infinite",
             }}
@@ -286,9 +286,9 @@ function CatButton({ active, onClick, label, jp }) {
   const s = {
     btn: {
       padding: "7px 18px",
-      background: active ? "rgba(52,200,255,0.12)" : "transparent",
-      border: `1px solid ${active ? "#34c8ff" : "#1a4b59"}`,
-      color: active ? "#34c8ff" : "#8db6bf",
+      background: active ? "rgba(232,96,154,0.1)" : "transparent",
+      border: `1px solid ${active ? "#e8609a" : "#2a1a22"}`,
+      color: active ? "#e8609a" : "#888",
       fontSize: 11,
       letterSpacing: 2,
       cursor: "pointer",
@@ -301,7 +301,7 @@ function CatButton({ active, onClick, label, jp }) {
       display: "block",
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 8,
-      color: active ? "rgba(88,224,164,0.5)" : "rgba(52,200,255,0.2)",
+      color: active ? "rgba(232,96,154,0.5)" : "rgba(232,96,154,0.2)",
       letterSpacing: 1,
       marginTop: 3,
     },
@@ -313,14 +313,14 @@ function CatButton({ active, onClick, label, jp }) {
       onClick={onClick}
       onMouseEnter={(e) => {
         if (!active) {
-          e.currentTarget.style.borderColor = "#34c8ff";
-          e.currentTarget.style.color = "#34c8ff";
+          e.currentTarget.style.borderColor = "#e8609a";
+          e.currentTarget.style.color = "#e8609a";
         }
       }}
       onMouseLeave={(e) => {
         if (!active) {
-          e.currentTarget.style.borderColor = "#1a4b59";
-          e.currentTarget.style.color = "#8db6bf";
+          e.currentTarget.style.borderColor = "#2a1a22";
+          e.currentTarget.style.color = "#888";
         }
       }}
     >

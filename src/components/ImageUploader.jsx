@@ -24,9 +24,9 @@ export default function ImageUploader({ value, onChange }) {
 
   const s = {
     wrap: {
-      border: `2px dashed ${dragging ? '#34c8ff' : '#1a4b59'}`,
+      border: `2px dashed ${dragging ? '#e8609a' : '#2a1a22'}`,
       borderRadius: 4,
-      background: dragging ? 'rgba(52,200,255,0.08)' : '#071c23',
+      background: dragging ? 'rgba(232,96,154,0.06)' : '#0d0810',
       transition: 'all 0.2s',
       overflow: 'hidden',
       cursor: 'pointer',
@@ -53,18 +53,18 @@ export default function ImageUploader({ value, onChange }) {
     icon: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 36,
-      color: 'rgba(88,224,164,0.35)',
+      color: 'rgba(232,96,154,0.35)',
     },
     hint: {
       fontSize: 11,
       letterSpacing: 2,
       textTransform: 'uppercase',
-      color: '#6b8e99',
+      color: '#666',
       textAlign: 'center',
     },
     hint2: {
       fontSize: 10,
-      color: '#56757d',
+      color: '#3a3a3a',
       textAlign: 'center',
     },
     changeBtn: {
@@ -72,8 +72,8 @@ export default function ImageUploader({ value, onChange }) {
       bottom: 10, right: 10,
       padding: '5px 14px',
       background: 'rgba(10,10,10,0.85)',
-      border: '1px solid rgba(52,200,255,0.4)',
-      color: '#34c8ff',
+      border: '1px solid rgba(232,96,154,0.4)',
+      color: '#e8609a',
       fontSize: 10,
       letterSpacing: 2,
       textTransform: 'uppercase',
@@ -84,11 +84,11 @@ export default function ImageUploader({ value, onChange }) {
       position: 'absolute',
       bottom: 0, left: 0, right: 0,
       height: 3,
-      background: '#0d313b',
+      background: '#1a0a14',
     },
     progressBar: {
       height: '100%',
-      background: '#34c8ff',
+      background: '#e8609a',
       transition: 'width 0.3s ease',
     },
     uploadingOverlay: {
@@ -105,43 +105,43 @@ export default function ImageUploader({ value, onChange }) {
       fontSize: 11,
       letterSpacing: 2,
       textTransform: 'uppercase',
-      color: '#34c8ff',
+      color: '#e8609a',
     },
     notConfigured: {
       margin: '8px 0 0',
       padding: '10px 14px',
-      background: 'rgba(52,200,255,0.08)',
-      border: '1px solid rgba(88,224,164,0.18)',
+      background: 'rgba(232,96,154,0.06)',
+      border: '1px solid rgba(232,96,154,0.18)',
       borderRadius: 3,
       fontSize: 11,
-      color: '#9fe7d5',
+      color: '#c0a0b0',
       lineHeight: 1.7,
     },
     notConfiguredTitle: {
       fontSize: 10,
       letterSpacing: 2,
       textTransform: 'uppercase',
-      color: '#34c8ff',
+      color: '#e8609a',
       fontWeight: 700,
       display: 'block',
       marginBottom: 5,
     },
     code: {
-      background: '#0d313b',
+      background: '#1a0a14',
       padding: '1px 6px',
       borderRadius: 2,
       fontFamily: 'monospace',
       fontSize: 11,
-      color: '#66e1c6',
+      color: '#f07ab0',
     },
     errorBox: {
       marginTop: 8,
       padding: '8px 12px',
-      background: 'rgba(52,200,255,0.1)',
-      border: '1px solid rgba(52,200,255,0.2)',
+      background: 'rgba(232,96,154,0.08)',
+      border: '1px solid rgba(232,96,154,0.2)',
       borderRadius: 3,
       fontSize: 11,
-      color: '#66e1c6',
+      color: '#f07ab0',
     },
   }
 
@@ -178,7 +178,7 @@ export default function ImageUploader({ value, onChange }) {
         {uploading && (
           <div style={s.uploadingOverlay}>
             <span style={s.uploadingText}>Subiendo... {progress}%</span>
-            <div style={{ width: 120, height: 3, background: '#0d313b', borderRadius: 2 }}>
+            <div style={{ width: 120, height: 3, background: '#1a0a14', borderRadius: 2 }}>
               <div style={{ ...s.progressBar, width: `${progress}%`, borderRadius: 2 }} />
             </div>
           </div>
@@ -189,8 +189,8 @@ export default function ImageUploader({ value, onChange }) {
         <div style={s.notConfigured}>
           <span style={s.notConfiguredTitle}>Configura el almacenamiento de fotos</span>
           Opcion recomendada — <strong>ImgBB</strong> (gratis, sin limite):<br />
-          1. Ve a <a href="https://imgbb.com" target="_blank" rel="noreferrer" style={{ color: '#34c8ff' }}>imgbb.com</a> y crea una cuenta<br />
-          2. Ve a <a href="https://api.imgbb.com" target="_blank" rel="noreferrer" style={{ color: '#34c8ff' }}>api.imgbb.com</a> y copia tu API key<br />
+          1. Ve a <a href="https://imgbb.com" target="_blank" rel="noreferrer" style={{ color: '#e8609a' }}>imgbb.com</a> y crea una cuenta<br />
+          2. Ve a <a href="https://api.imgbb.com" target="_blank" rel="noreferrer" style={{ color: '#e8609a' }}>api.imgbb.com</a> y copia tu API key<br />
           3. Pegala en <code style={s.code}>src/hooks/useImageUpload.js</code> en <code style={s.code}>IMGBB_KEY</code><br />
           <br />
           Por ahora la foto se guarda solo en este navegador (se borra si limpias cache).

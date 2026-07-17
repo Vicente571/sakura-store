@@ -9,10 +9,10 @@ function StarField({ count = 6000, minRadius = 14, maxRadius = 46, spreadY = 26,
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
     const palette = [
-      new THREE.Color("#8ad8ff"),
-      new THREE.Color("#7ee6c4"),
+      new THREE.Color("#ffb3d9"),
+      new THREE.Color("#d9b3ff"),
       new THREE.Color("#ffffff"),
-      new THREE.Color("#36cfff"),
+      new THREE.Color("#ff8fc7"),
     ];
     for (let i = 0; i < count; i++) {
       // distribucion esferica pareja para que se vean estrellas
@@ -96,7 +96,7 @@ function MemoryPlanet({ memory, position, onFocus }) {
       <mesh position={[0, 0, -0.05]} ref={glowRef}>
         <circleGeometry args={[1.55, 48]} />
         <meshBasicMaterial
-          color="#38d5b7"
+          color="#ff9fd4"
           transparent
           opacity={hovered ? 0.28 : 0.16}
           toneMapped={false}
@@ -122,7 +122,7 @@ function MemoryPlanet({ memory, position, onFocus }) {
       <mesh position={[0, 0, -0.02]}>
         <ringGeometry args={[1.16, 1.34, 48]} />
         <meshBasicMaterial
-          color="#8ad8ff"
+          color="#ffb3d9"
           transparent
           opacity={hovered ? 0.95 : 0.5}
           toneMapped={false}
@@ -136,9 +136,9 @@ function MemoryPlanet({ memory, position, onFocus }) {
         textAlign="center"
         anchorX="center"
         anchorY="top"
-        color="#dcfbff"
+        color="#ffe3f2"
         outlineWidth={0.012}
-        outlineColor="#0b3a44"
+        outlineColor="#2a0620"
       >
         {memory.phrase}
       </Text>
@@ -172,7 +172,7 @@ export default function GalaxyScene({ memories, intro }) {
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <Canvas camera={{ position: [0, 5, 20], fov: 55 }}>
-        <color attach="background" args={["#020c12"]} />
+        <color attach="background" args={["#050208"]} />
         <ambientLight intensity={0.7} />
         {/* Varias capas de estrellas para que se vean llenas arriba, abajo
             y a lo lejos sin importar cuanto te alejes con el zoom */}
@@ -196,9 +196,9 @@ export default function GalaxyScene({ memories, intro }) {
               textAlign="center"
               anchorX="center"
               anchorY="middle"
-              color="#c7fff1"
+              color="#ffd7ec"
               outlineWidth={0.02}
-              outlineColor="#0b3a44"
+              outlineColor="#2a0620"
             >
               {intro}
             </Text>
@@ -228,8 +228,8 @@ export default function GalaxyScene({ memories, intro }) {
             left: 18,
             padding: "8px 18px",
             background: "rgba(10,10,10,0.75)",
-            border: "1px solid rgba(52,200,255,0.4)",
-            color: "#66e1c6",
+            border: "1px solid rgba(232,96,154,0.4)",
+            color: "#f07ab0",
             fontSize: 11,
             letterSpacing: 2,
             textTransform: "uppercase",
