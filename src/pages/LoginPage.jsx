@@ -19,7 +19,7 @@ export default function LoginPage() {
   const s = {
     page: {
       minHeight: '100vh',
-      background: '#0a0a0a',
+      background: '#04141b',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -32,7 +32,7 @@ export default function LoginPage() {
       inset: 0,
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 130,
-      color: 'rgba(220,80,130,0.025)',
+      color: 'rgba(52,200,255,0.025)',
       pointerEvents: 'none',
       overflow: 'hidden',
       lineHeight: 1,
@@ -47,8 +47,8 @@ export default function LoginPage() {
       width: '100%',
       maxWidth: 360,
       padding: 36,
-      background: '#111014',
-      border: '1px solid #2a1a22',
+      background: '#0a1d24',
+      border: '1px solid #1a4b59',
       borderRadius: 4,
       animation: 'fadeIn 0.4s ease',
     },
@@ -63,13 +63,13 @@ export default function LoginPage() {
       fontFamily: "'Bebas Neue', sans-serif",
       fontSize: 28,
       letterSpacing: 5,
-      color: '#e8609a',
+      color: '#34c8ff',
       display: 'block',
     },
     logoJp: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 9,
-      color: 'rgba(220,80,130,0.35)',
+      color: 'rgba(52,200,255,0.35)',
       letterSpacing: 3,
       display: 'block',
       marginTop: 4,
@@ -78,7 +78,7 @@ export default function LoginPage() {
       fontSize: 10,
       letterSpacing: 3,
       textTransform: 'uppercase',
-      color: '#444',
+      color: '#47666f',
       textAlign: 'center',
       marginBottom: 24,
       display: 'block',
@@ -91,19 +91,19 @@ export default function LoginPage() {
       fontSize: 9,
       letterSpacing: 2,
       textTransform: 'uppercase',
-      color: '#888',
+      color: '#8db6bf',
       marginBottom: 7,
     },
     labelJp: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 9,
-      color: 'rgba(232,96,154,0.3)',
+      color: 'rgba(88,224,164,0.3)',
     },
     input: {
       width: '100%',
-      background: '#0d0810',
-      border: '1px solid #2a1a22',
-      color: '#f0e0e8',
+      background: '#071c23',
+      border: '1px solid #1a4b59',
+      color: '#e6fbff',
       padding: '10px 14px',
       fontSize: 14,
       borderRadius: 2,
@@ -112,20 +112,20 @@ export default function LoginPage() {
     },
     error: {
       fontSize: 11,
-      color: '#f07ab0',
+      color: '#66e1c6',
       textAlign: 'center',
       marginBottom: 14,
       padding: '7px 12px',
-      background: 'rgba(232,96,154,0.08)',
+      background: 'rgba(52,200,255,0.1)',
       borderRadius: 2,
-      border: '1px solid rgba(232,96,154,0.15)',
+      border: '1px solid rgba(52,200,255,0.15)',
     },
     btn: {
       width: '100%',
       padding: 13,
-      background: '#e8609a',
+      background: '#34c8ff',
       border: 'none',
-      color: '#0a0a0a',
+      color: '#04141b',
       fontSize: 11,
       letterSpacing: 3,
       textTransform: 'uppercase',
@@ -136,7 +136,7 @@ export default function LoginPage() {
     },
     accentLine: {
       width: 30, height: 2,
-      background: 'rgba(232,96,154,0.3)',
+      background: 'rgba(88,224,164,0.3)',
       margin: '0 auto 24px',
     },
   }
@@ -165,8 +165,8 @@ export default function LoginPage() {
             onChange={e => setUser(e.target.value)}
             placeholder="admin"
             autoComplete="username"
-            onFocus={e => e.target.style.borderColor = '#e8609a'}
-            onBlur={e => e.target.style.borderColor = '#2a1a22'}
+            onFocus={e => e.target.style.borderColor = '#34c8ff'}
+            onBlur={e => e.target.style.borderColor = '#1a4b59'}
           />
         </div>
 
@@ -182,16 +182,16 @@ export default function LoginPage() {
             placeholder="••••••••"
             autoComplete="current-password"
             onKeyDown={e => e.key === 'Enter' && handleSubmit(e)}
-            onFocus={e => e.target.style.borderColor = '#e8609a'}
-            onBlur={e => e.target.style.borderColor = '#2a1a22'}
+            onFocus={e => e.target.style.borderColor = '#34c8ff'}
+            onBlur={e => e.target.style.borderColor = '#1a4b59'}
           />
         </div>
 
         <button
           style={s.btn}
           onClick={handleSubmit}
-          onMouseEnter={e => e.currentTarget.style.background = '#f07ab0'}
-          onMouseLeave={e => e.currentTarget.style.background = '#e8609a'}
+          onMouseEnter={e => e.currentTarget.style.background = '#66e1c6'}
+          onMouseLeave={e => e.currentTarget.style.background = '#34c8ff'}
         >
           Entrar al panel
         </button>
