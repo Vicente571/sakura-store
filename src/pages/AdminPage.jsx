@@ -120,13 +120,13 @@ export default function AdminPage() {
   }
 
   const s = {
-    page: { minHeight: "100vh", background: "#04141b", position: "relative" },
+    page: { minHeight: "100vh", background: "#0a0a0a", position: "relative" },
     jpBg: {
       position: "fixed",
       inset: 0,
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 130,
-      color: "rgba(52,200,255,0.02)",
+      color: "rgba(220,80,130,0.02)",
       pointerEvents: "none",
       overflow: "hidden",
       lineHeight: 1,
@@ -141,7 +141,7 @@ export default function AdminPage() {
       zIndex: 100,
       background: "rgba(10,10,10,0.95)",
       backdropFilter: "blur(12px)",
-      borderBottom: "1px solid #0f4250",
+      borderBottom: "1px solid #2a0a14",
       padding: "0 24px",
       display: "flex",
       alignItems: "center",
@@ -153,12 +153,12 @@ export default function AdminPage() {
       fontFamily: "'Bebas Neue', sans-serif",
       fontSize: 22,
       letterSpacing: 4,
-      color: "#34c8ff",
+      color: "#e8609a",
     },
     headerJp: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 9,
-      color: "rgba(52,200,255,0.35)",
+      color: "rgba(220,80,130,0.35)",
       letterSpacing: 2,
       marginTop: 3,
     },
@@ -166,8 +166,8 @@ export default function AdminPage() {
     viewBtn: {
       padding: "5px 14px",
       background: "transparent",
-      border: "1px solid #1a4b59",
-      color: "#8db6bf",
+      border: "1px solid #2a1a22",
+      color: "#888",
       fontSize: 10,
       letterSpacing: 2,
       textTransform: "uppercase",
@@ -179,8 +179,8 @@ export default function AdminPage() {
     logoutBtn: {
       padding: "5px 14px",
       background: "transparent",
-      border: "1px solid #0f6a54",
-      color: "#34c8ff",
+      border: "1px solid #3a1020",
+      color: "#e8609a",
       fontSize: 10,
       letterSpacing: 2,
       textTransform: "uppercase",
@@ -202,8 +202,8 @@ export default function AdminPage() {
       marginBottom: 28,
     },
     statCard: {
-      background: "#0a1d24",
-      border: "1px solid #123540",
+      background: "#111014",
+      border: "1px solid #1e0e18",
       borderRadius: 4,
       padding: "16px 20px",
       textAlign: "center",
@@ -212,7 +212,7 @@ export default function AdminPage() {
       fontFamily: "'Bebas Neue', sans-serif",
       fontSize: 36,
       letterSpacing: 3,
-      color: "#34c8ff",
+      color: "#e8609a",
       lineHeight: 1,
       display: "block",
     },
@@ -220,14 +220,14 @@ export default function AdminPage() {
       fontSize: 9,
       letterSpacing: 2,
       textTransform: "uppercase",
-      color: "#5f7f89",
+      color: "#555",
       marginTop: 4,
       display: "block",
     },
     statJp: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 9,
-      color: "rgba(88,224,164,0.25)",
+      color: "rgba(232,96,154,0.25)",
       display: "block",
       marginTop: 2,
     },
@@ -235,14 +235,14 @@ export default function AdminPage() {
       display: "flex",
       gap: 0,
       marginBottom: 28,
-      borderBottom: "1px solid #123540",
+      borderBottom: "1px solid #1e0e18",
     },
     tabBtn: (active) => ({
       padding: "10px 24px",
       background: "transparent",
       border: "none",
-      borderBottom: `2px solid ${active ? "#34c8ff" : "transparent"}`,
-      color: active ? "#34c8ff" : "#5f7f89",
+      borderBottom: `2px solid ${active ? "#e8609a" : "transparent"}`,
+      color: active ? "#e8609a" : "#555",
       fontSize: 11,
       letterSpacing: 2,
       textTransform: "uppercase",
@@ -255,25 +255,25 @@ export default function AdminPage() {
       fontFamily: "'Bebas Neue', sans-serif",
       fontSize: 22,
       letterSpacing: 5,
-      color: "#e6fbff",
+      color: "#f0e0e8",
       marginBottom: 4,
     },
     editingBanner: {
       padding: "10px 16px",
-      background: "rgba(52,200,255,0.1)",
-      border: "1px solid rgba(88,224,164,0.25)",
+      background: "rgba(232,96,154,0.08)",
+      border: "1px solid rgba(232,96,154,0.25)",
       borderRadius: 3,
       marginBottom: 20,
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
       fontSize: 12,
-      color: "#34c8ff",
+      color: "#e8609a",
     },
     sectionJp: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 10,
-      color: "rgba(88,224,164,0.3)",
+      color: "rgba(232,96,154,0.3)",
       letterSpacing: 2,
       marginBottom: 22,
       display: "block",
@@ -293,19 +293,19 @@ export default function AdminPage() {
       fontSize: 9,
       letterSpacing: 2,
       textTransform: "uppercase",
-      color: "#8db6bf",
+      color: "#888",
       marginBottom: 7,
     },
     labelJp: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 9,
-      color: "rgba(88,224,164,0.3)",
+      color: "rgba(232,96,154,0.3)",
     },
     input: {
       width: "100%",
-      background: "#0a1d24",
-      border: "1px solid #1a4b59",
-      color: "#e6fbff",
+      background: "#111014",
+      border: "1px solid #2a1a22",
+      color: "#f0e0e8",
       padding: "10px 14px",
       fontSize: 13,
       borderRadius: 2,
@@ -314,9 +314,9 @@ export default function AdminPage() {
     },
     select: {
       width: "100%",
-      background: "#0a1d24",
-      border: "1px solid #1a4b59",
-      color: "#e6fbff",
+      background: "#111014",
+      border: "1px solid #2a1a22",
+      color: "#f0e0e8",
       padding: "10px 14px",
       fontSize: 13,
       borderRadius: 2,
@@ -326,9 +326,9 @@ export default function AdminPage() {
     },
     textarea: {
       width: "100%",
-      background: "#0a1d24",
-      border: "1px solid #1a4b59",
-      color: "#e6fbff",
+      background: "#111014",
+      border: "1px solid #2a1a22",
+      color: "#f0e0e8",
       padding: "10px 14px",
       fontSize: 13,
       borderRadius: 2,
@@ -342,9 +342,9 @@ export default function AdminPage() {
     submitBtn: {
       flex: 1,
       padding: "12px 28px",
-      background: "#34c8ff",
+      background: "#e8609a",
       border: "none",
-      color: "#04141b",
+      color: "#0a0a0a",
       fontSize: 11,
       letterSpacing: 3,
       textTransform: "uppercase",
@@ -356,8 +356,8 @@ export default function AdminPage() {
     cancelBtn: {
       padding: "12px 20px",
       background: "transparent",
-      border: "1px solid #1a4b59",
-      color: "#8db6bf",
+      border: "1px solid #2a1a22",
+      color: "#888",
       fontSize: 11,
       letterSpacing: 2,
       textTransform: "uppercase",
@@ -365,12 +365,12 @@ export default function AdminPage() {
       cursor: "pointer",
       transition: "all 0.2s",
     },
-    divider: { height: 1, background: "#123540", margin: "8px 0 24px" },
+    divider: { height: 1, background: "#1e0e18", margin: "8px 0 24px" },
     listTitle: {
       fontFamily: "'Bebas Neue', sans-serif",
       fontSize: 14,
       letterSpacing: 4,
-      color: "#5f7f89",
+      color: "#555",
       marginBottom: 14,
     },
     item: {
@@ -378,8 +378,8 @@ export default function AdminPage() {
       alignItems: "center",
       gap: 12,
       padding: "10px 14px",
-      background: "#0a1d24",
-      border: "1px solid #123540",
+      background: "#111014",
+      border: "1px solid #1e0e18",
       borderRadius: 2,
       marginBottom: 8,
     },
@@ -388,26 +388,26 @@ export default function AdminPage() {
       height: 44,
       objectFit: "cover",
       borderRadius: 2,
-      background: "#09262f",
+      background: "#1a0810",
       flexShrink: 0,
     },
     itemImgPh: {
       width: 44,
       height: 44,
       borderRadius: 2,
-      background: "#09262f",
+      background: "#1a0810",
       flexShrink: 0,
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 16,
-      color: "rgba(88,224,164,0.3)",
+      color: "rgba(232,96,154,0.3)",
     },
     itemInfo: { flex: 1, minWidth: 0 },
     itemName: {
       fontSize: 13,
-      color: "#9fe7d5",
+      color: "#c0a0b0",
       display: "block",
       marginBottom: 3,
     },
@@ -417,22 +417,22 @@ export default function AdminPage() {
       gap: 8,
       flexWrap: "wrap",
     },
-    itemPrice: { fontSize: 11, color: "#34c8ff", fontWeight: 600 },
+    itemPrice: { fontSize: 11, color: "#e8609a", fontWeight: 600 },
     itemCat: {
       fontSize: 9,
       letterSpacing: 2,
       textTransform: "uppercase",
-      color: "rgba(52,200,255,0.4)",
-      border: "1px solid rgba(88,224,164,0.18)",
+      color: "rgba(232,96,154,0.4)",
+      border: "1px solid rgba(232,96,154,0.18)",
       padding: "2px 8px",
       borderRadius: 2,
     },
     actionBtns: { display: "flex", gap: 6, flexShrink: 0 },
     editBtn: {
       padding: "4px 10px",
-      background: "rgba(52,200,255,0.12)",
-      border: "1px solid rgba(88,224,164,0.25)",
-      color: "#34c8ff",
+      background: "rgba(232,96,154,0.1)",
+      border: "1px solid rgba(232,96,154,0.25)",
+      color: "#e8609a",
       fontSize: 10,
       letterSpacing: 1,
       textTransform: "uppercase",
@@ -443,8 +443,8 @@ export default function AdminPage() {
     deleteBtn: {
       padding: "4px 10px",
       background: "transparent",
-      border: "1px solid #145767",
-      color: "#5f7f89",
+      border: "1px solid #2a1020",
+      color: "#555",
       fontSize: 10,
       letterSpacing: 1,
       textTransform: "uppercase",
@@ -459,9 +459,9 @@ export default function AdminPage() {
       zIndex: 9999,
       padding: "12px 20px",
       borderRadius: 3,
-      background: type === "ok" ? "#34c8ff" : "#0f6a54",
-      border: `1px solid ${type === "ok" ? "#66e1c6" : "#34c8ff"}`,
-      color: type === "ok" ? "#04141b" : "#66e1c6",
+      background: type === "ok" ? "#e8609a" : "#3a1020",
+      border: `1px solid ${type === "ok" ? "#f07ab0" : "#e8609a"}`,
+      color: type === "ok" ? "#0a0a0a" : "#f07ab0",
       fontSize: 12,
       letterSpacing: 2,
       textTransform: "uppercase",
@@ -471,8 +471,8 @@ export default function AdminPage() {
     }),
   };
 
-  const focusStyle = (e) => (e.target.style.borderColor = "#34c8ff");
-  const blurStyle = (e) => (e.target.style.borderColor = "#1a4b59");
+  const focusStyle = (e) => (e.target.style.borderColor = "#e8609a");
+  const blurStyle = (e) => (e.target.style.borderColor = "#2a1a22");
 
   return (
     <div style={s.page}>
@@ -490,12 +490,12 @@ export default function AdminPage() {
             to="/"
             style={s.viewBtn}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "#34c8ff";
-              e.currentTarget.style.color = "#34c8ff";
+              e.currentTarget.style.borderColor = "#e8609a";
+              e.currentTarget.style.color = "#e8609a";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "#1a4b59";
-              e.currentTarget.style.color = "#8db6bf";
+              e.currentTarget.style.borderColor = "#2a1a22";
+              e.currentTarget.style.color = "#888";
             }}
           >
             Ver tienda
@@ -504,7 +504,7 @@ export default function AdminPage() {
             style={s.logoutBtn}
             onClick={logout}
             onMouseEnter={(e) =>
-              (e.currentTarget.style.background = "rgba(52,200,255,0.12)")
+              (e.currentTarget.style.background = "rgba(232,96,154,0.1)")
             }
             onMouseLeave={(e) =>
               (e.currentTarget.style.background = "transparent")
@@ -639,10 +639,10 @@ export default function AdminPage() {
                   style={s.submitBtn}
                   onClick={handleSubmitProduct}
                   onMouseEnter={(e) =>
-                    (e.currentTarget.style.background = "#66e1c6")
+                    (e.currentTarget.style.background = "#f07ab0")
                   }
                   onMouseLeave={(e) =>
-                    (e.currentTarget.style.background = "#34c8ff")
+                    (e.currentTarget.style.background = "#e8609a")
                   }
                 >
                   {editingProduct ? "Guardar cambios" : "Agregar producto"}
@@ -652,12 +652,12 @@ export default function AdminPage() {
                     style={s.cancelBtn}
                     onClick={clearForm}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = "#34c8ff";
-                      e.currentTarget.style.color = "#34c8ff";
+                      e.currentTarget.style.borderColor = "#e8609a";
+                      e.currentTarget.style.color = "#e8609a";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = "#1a4b59";
-                      e.currentTarget.style.color = "#8db6bf";
+                      e.currentTarget.style.borderColor = "#2a1a22";
+                      e.currentTarget.style.color = "#888";
                     }}
                   >
                     Cancelar
@@ -671,7 +671,7 @@ export default function AdminPage() {
               Productos registrados ({products.length})
             </div>
             {products.length === 0 && (
-              <div style={{ fontSize: 12, color: "#47666f", padding: "16px 0" }}>
+              <div style={{ fontSize: 12, color: "#444", padding: "16px 0" }}>
                 Sin productos aun
               </div>
             )}
@@ -699,11 +699,11 @@ export default function AdminPage() {
                       onClick={() => fillForm(p)}
                       onMouseEnter={(e) =>
                         (e.currentTarget.style.background =
-                          "rgba(52,200,255,0.2)")
+                          "rgba(232,96,154,0.2)")
                       }
                       onMouseLeave={(e) =>
                         (e.currentTarget.style.background =
-                          "rgba(52,200,255,0.12)")
+                          "rgba(232,96,154,0.1)")
                       }
                     >
                       Editar
@@ -712,12 +712,12 @@ export default function AdminPage() {
                       style={s.deleteBtn}
                       onClick={() => handleDeleteProduct(p.id)}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = "#34c8ff";
-                        e.currentTarget.style.color = "#34c8ff";
+                        e.currentTarget.style.borderColor = "#e8609a";
+                        e.currentTarget.style.color = "#e8609a";
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = "#145767";
-                        e.currentTarget.style.color = "#5f7f89";
+                        e.currentTarget.style.borderColor = "#2a1020";
+                        e.currentTarget.style.color = "#555";
                       }}
                     >
                       Borrar
@@ -766,10 +766,10 @@ export default function AdminPage() {
                 style={{ ...s.submitBtn, alignSelf: "flex-start" }}
                 onClick={handleAddCategory}
                 onMouseEnter={(e) =>
-                  (e.currentTarget.style.background = "#66e1c6")
+                  (e.currentTarget.style.background = "#f07ab0")
                 }
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.background = "#34c8ff")
+                  (e.currentTarget.style.background = "#e8609a")
                 }
               >
                 Crear categoria
@@ -787,7 +787,7 @@ export default function AdminPage() {
                     style={{
                       fontFamily: "'Noto Serif JP', serif",
                       fontSize: 20,
-                      color: "rgba(52,200,255,0.4)",
+                      color: "rgba(232,96,154,0.4)",
                       minWidth: 28,
                     }}
                   >
@@ -800,7 +800,7 @@ export default function AdminPage() {
                         style={{
                           fontFamily: "'Noto Serif JP', serif",
                           fontSize: 11,
-                          color: "rgba(88,224,164,0.3)",
+                          color: "rgba(232,96,154,0.3)",
                         }}
                       >
                         {cat.jp}
@@ -814,12 +814,12 @@ export default function AdminPage() {
                     style={s.deleteBtn}
                     onClick={() => handleDeleteCategory(cat.id)}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = "#34c8ff";
-                      e.currentTarget.style.color = "#34c8ff";
+                      e.currentTarget.style.borderColor = "#e8609a";
+                      e.currentTarget.style.color = "#e8609a";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = "#145767";
-                      e.currentTarget.style.color = "#5f7f89";
+                      e.currentTarget.style.borderColor = "#2a1020";
+                      e.currentTarget.style.color = "#555";
                     }}
                   >
                     Borrar

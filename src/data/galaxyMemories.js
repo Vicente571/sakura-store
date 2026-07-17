@@ -30,17 +30,17 @@ function placeholder(from, to) {
 export const defaultMemories = [
   {
     id: "demo-1",
-    image: placeholder("#c7fff1", "#1b5f63"),
+    image: placeholder("#ffd7ec", "#7a2f66"),
     phrase: "Mi niña, contigo hasta las estrellas se ven mas bonitas 🩷",
   },
   {
     id: "demo-2",
-    image: placeholder("#bde6ff", "#1b4e72"),
+    image: placeholder("#e5c9ff", "#4a2472"),
     phrase: "Mi vida, eres la luz que ilumina toda mi galaxia 😍",
   },
   {
     id: "demo-3",
-    image: placeholder("#9fe7d5", "#1e5b58"),
+    image: placeholder("#c9e3ff", "#2a3a72"),
     phrase: "Mi cielo, gracias por existir y por ser mi persona favorita 🩶",
   },
 ];
