@@ -29,8 +29,8 @@ export default function ProductCard({ product, index }) {
 
   const s = {
     card: {
-      background: "#111014",
-      border: "1px solid #1e0e18",
+      background: "#0a1d24",
+      border: "1px solid #123540",
       borderRadius: 4,
       overflow: "hidden",
       position: "relative",
@@ -45,7 +45,7 @@ export default function ProductCard({ product, index }) {
       position: "relative",
       overflow: "hidden",
       cursor: product.image && !imgError ? "zoom-in" : "default",
-      background: "#150810",
+      background: "#08242d",
     },
     img: {
       width: "100%",
@@ -54,12 +54,12 @@ export default function ProductCard({ product, index }) {
       objectPosition: "center",
       display: "block",
       transition: "transform 0.4s ease",
-      background: "#150810",
+      background: "#08242d",
     },
     placeholder: {
       width: "100%",
       height: "100%",
-      background: "linear-gradient(135deg, #1a0a14 0%, #2a0a1e 100%)",
+      background: "linear-gradient(135deg, #0d313b 0%, #145767 100%)",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -69,25 +69,25 @@ export default function ProductCard({ product, index }) {
     phJp: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 36,
-      color: "rgba(232,96,154,0.25)",
+      color: "rgba(88,224,164,0.25)",
     },
     phLabel: {
       fontSize: 10,
       letterSpacing: 2,
       textTransform: "uppercase",
-      color: "rgba(232,96,154,0.15)",
+      color: "rgba(52,200,255,0.15)",
     },
     zoomHint: {
       position: "absolute",
       bottom: 8,
       right: 8,
       background: "rgba(10,10,10,0.7)",
-      border: "1px solid rgba(232,96,154,0.2)",
+      border: "1px solid rgba(52,200,255,0.2)",
       borderRadius: 2,
       padding: "3px 8px",
       fontSize: 9,
       letterSpacing: 1,
-      color: "rgba(232,96,154,0.6)",
+      color: "rgba(88,224,164,0.6)",
       textTransform: "uppercase",
       pointerEvents: "none",
     },
@@ -97,7 +97,7 @@ export default function ProductCard({ product, index }) {
       right: 10,
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 18,
-      color: "rgba(232,96,154,0.45)",
+      color: "rgba(52,200,255,0.45)",
       pointerEvents: "none",
     },
     body: {
@@ -111,32 +111,32 @@ export default function ProductCard({ product, index }) {
       fontSize: 9,
       letterSpacing: 2,
       textTransform: "uppercase",
-      color: "#e8609a",
-      border: "1px solid rgba(232,96,154,0.25)",
+      color: "#34c8ff",
+      border: "1px solid rgba(88,224,164,0.25)",
       padding: "2px 7px",
       borderRadius: 2,
     },
     catJp: {
       fontFamily: "'Noto Serif JP', serif",
       fontSize: 9,
-      color: "rgba(232,96,154,0.3)",
+      color: "rgba(88,224,164,0.3)",
     },
     price: {
       fontSize: 12,
       fontWeight: 700,
-      color: "#e8609a",
+      color: "#34c8ff",
       marginLeft: "auto",
     },
     name: {
       fontSize: 15,
       fontWeight: 600,
-      color: "#f0e0e8",
+      color: "#e6fbff",
       marginBottom: 6,
       lineHeight: 1.35,
     },
     desc: {
       fontSize: 11,
-      color: "#666",
+      color: "#6b8e99",
       lineHeight: 1.6,
       marginBottom: 10,
       flex: 1,
@@ -149,9 +149,9 @@ export default function ProductCard({ product, index }) {
     },
     btnWA: {
       padding: "9px 6px",
-      background: "#e8609a",
+      background: "#34c8ff",
       border: "none",
-      color: "#0a0a0a",
+      color: "#04141b",
       fontSize: 9,
       letterSpacing: 1.5,
       textTransform: "uppercase",
@@ -166,8 +166,8 @@ export default function ProductCard({ product, index }) {
     btnIG: {
       padding: "9px 6px",
       background: "transparent",
-      border: "1px solid rgba(232,96,154,0.35)",
-      color: "#e8609a",
+      border: "1px solid rgba(88,224,164,0.35)",
+      color: "#34c8ff",
       fontSize: 9,
       letterSpacing: 1.5,
       textTransform: "uppercase",
@@ -181,7 +181,7 @@ export default function ProductCard({ product, index }) {
     },
     igNote: {
       fontSize: 9,
-      color: "#444",
+      color: "#47666f",
       textAlign: "center",
       lineHeight: 1.4,
     },
@@ -203,23 +203,23 @@ export default function ProductCard({ product, index }) {
       maxHeight: "80vh",
       objectFit: "contain",
       borderRadius: 4,
-      border: "1px solid rgba(232,96,154,0.2)",
-      boxShadow: "0 0 60px rgba(232,96,154,0.15)",
+      border: "1px solid rgba(52,200,255,0.2)",
+      boxShadow: "0 0 60px rgba(52,200,255,0.15)",
     },
     lightboxName: {
       marginTop: 16,
       fontFamily: "'Bebas Neue', sans-serif",
       fontSize: 20,
       letterSpacing: 4,
-      color: "#e8609a",
+      color: "#34c8ff",
     },
     lightboxClose: {
       position: "absolute",
       top: 20,
       right: 24,
       background: "transparent",
-      border: "1px solid rgba(232,96,154,0.3)",
-      color: "#e8609a",
+      border: "1px solid rgba(88,224,164,0.3)",
+      color: "#34c8ff",
       fontSize: 11,
       letterSpacing: 2,
       textTransform: "uppercase",
@@ -230,7 +230,7 @@ export default function ProductCard({ product, index }) {
     lightboxPrice: {
       marginTop: 6,
       fontSize: 13,
-      color: "#c0a0b0",
+      color: "#9fe7d5",
       letterSpacing: 2,
     },
   };
@@ -240,13 +240,13 @@ export default function ProductCard({ product, index }) {
       <div
         style={s.card}
         onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = "#e8609a";
+          e.currentTarget.style.borderColor = "#34c8ff";
           e.currentTarget.style.transform = "translateY(-4px)";
           const img = e.currentTarget.querySelector(".card-img");
           if (img) img.style.transform = "scale(1.04)";
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = "#1e0e18";
+          e.currentTarget.style.borderColor = "#123540";
           e.currentTarget.style.transform = "translateY(0)";
           const img = e.currentTarget.querySelector(".card-img");
           if (img) img.style.transform = "scale(1)";
@@ -295,10 +295,10 @@ export default function ProductCard({ product, index }) {
                 )
               }
               onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "#f07ab0")
+                (e.currentTarget.style.background = "#66e1c6")
               }
               onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "#e8609a")
+                (e.currentTarget.style.background = "#34c8ff")
               }
             >
               WhatsApp
@@ -309,12 +309,12 @@ export default function ProductCard({ product, index }) {
                 window.open(buildIGLink(), "_blank", "noopener,noreferrer")
               }
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(232,96,154,0.1)";
-                e.currentTarget.style.borderColor = "#e8609a";
+                e.currentTarget.style.background = "rgba(52,200,255,0.12)";
+                e.currentTarget.style.borderColor = "#34c8ff";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.borderColor = "rgba(232,96,154,0.35)";
+                e.currentTarget.style.borderColor = "rgba(88,224,164,0.35)";
               }}
             >
               Instagram
